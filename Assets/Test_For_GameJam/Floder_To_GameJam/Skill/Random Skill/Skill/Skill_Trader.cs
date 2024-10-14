@@ -1,5 +1,7 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Skill_Trader : MonoBehaviour
 {
@@ -8,97 +10,75 @@ public class Skill_Trader : MonoBehaviour
     [Header("Price")]
     public int Price;
 
+    [Header("Show Item Pannael")]
+    public GameObject Show_Item_Pannel;
+    public Image skill_Sprite;
+    public TextMeshProUGUI skill_name;
+    public TextMeshProUGUI Type_Skill;
+    public TextMeshProUGUI Description;
+
+    [Header("Animator")]
+    [SerializeField] Animator anim;
+
+    [Header("Text Near Chest")]
+    public List<GameObject> text_skill = new List<GameObject>();
+
     public bool CanBuy = true;
-    public float detectionRadius = 5.0f;
-    public LayerMask playerLayer;
-    public GameObject GetButton;
-    public GameObject This_Item;
-    public GameObject UI_Buy;
-    private Vector3 sizeItem;
-    [SerializeField] int current_price;
     [SerializeField] All_Skill item;
-
-    [Header("UI")]
-    public TextMeshProUGUI text;
-
-    [Header("UI Description")]
-    public GameObject Description;
-    public TextMeshProUGUI textSkill;
     void Start()
     {
-        playerLayer = LayerMask.GetMask("Player");
-        GetButton = transform.Find("Get_Button").gameObject;
-        Description = transform.Find("Description_Skill").gameObject;
-        textSkill = Description.GetComponentInChildren<TextMeshProUGUI>();
-        UI_Buy = transform.Find("UI_Buy").gameObject;
-        text = UI_Buy.GetComponentInChildren<TextMeshProUGUI>();
-        UI_Buy.SetActive(false);
-        Description.SetActive(false);
-        GetButton.SetActive(false);
-        ShowItem();
+        anim = GetComponent<Animator>();
     }
     void Update()
     {
         if (CanBuy)
         {
-            IsPlayerInRange();
-        }
-    }
-    bool IsPlayerInRange()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, playerLayer);
-        foreach (Collider2D hitCollider in hitColliders)
-        {
-            if (hitCollider.CompareTag("Player"))
+            if (CoinManager.instance.Coins >= Price)
             {
-                Debug.Log("Found");
-                GetButton.SetActive(true);
-                Description.SetActive(true);
-                UI_Buy.SetActive(true);
-                return true;
+                CoinManager.instance.SpendCoins(Price);
+                CanBuy = false;
+                for (int i = 0; i < text_skill.Count; i++)
+                {
+                    text_skill[i].SetActive(false);
+                }
+                CanBuy = true;
+                //anim เปิดกล่อง เล่นฟังชั่น Showitem
+            }
+            else
+            {
+                //เล่นเสียง
             }
         }
-        UI_Buy.SetActive(false);
-        Description.SetActive(false);
-        GetButton.SetActive(false);
-        return false;
     }
-    public void Buy()
+    public void Collect()
     {
-        if (CanBuy && PlayerManager.instance.MaxHealth > current_price)
+        PlayerManager.instance.AddSkill(item);
+        lootTable.RemoveItem(item);
+        HideItem();
+    }
+    public void Drop()
+    {
+        HideItem();
+    }
+    void HideItem()
+    {
+        skill_Sprite.sprite = null;
+        skill_name.text = "";
+        Description.text = "";
+        Show_Item_Pannel.SetActive(false);
+        //เล่น anim ปิดกล่อง เล่นฟังชั่น CloseBox
+    }
+    public void CloseBox()
+    {
+        for (int i = 0; i < text_skill.Count; i++)
         {
-            PlayerManager.instance.DecreaseMaxHealth(current_price);
-            PlayerManager.instance.AddSkill(item.sprite);
-            CanBuy = false;
-            UI_Buy.SetActive(false);
-            Description.SetActive(false);
-            GetButton.SetActive(false);
-            if (item != null)
-            {
-                
-            }
-            This_Item.SetActive(false);
-            this.enabled = false;
+            text_skill[i].SetActive(true);
         }
-        else
-        {
-            Debug.Log("No Money");
-        }
+        CanBuy = true;
     }
     void ShowItem()
     {
-        if (item != null)
-        {
-          
-        }
-        This_Item = Instantiate(item.gamePrefab, transform);
-        sizeItem = item.gamePrefab.transform.localScale;
-        This_Item.transform.localScale = sizeItem * 2f;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        Show_Item_Pannel.SetActive(true);
+        item = lootTable.GetRandom();
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -51,5 +51,16 @@ public class WeightSkill
         }
 
         return null;
+    }
+    public void RemoveItem(All_Skill itemData)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i].itemData == itemData)
+            {
+                list.RemoveAt(i);
+                break;
+            }
+        }
     }
 }

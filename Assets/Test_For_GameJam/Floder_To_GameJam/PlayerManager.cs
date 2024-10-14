@@ -239,13 +239,13 @@ public class PlayerManager : MonoBehaviour
         textHp.text = $"{Health}/{MaxHealth}";
     }
 
-    public void AddSkill(Sprite newSkill)
+    public void AddSkill(All_Skill newSkill)
     {
         for (int i = 0; i < skills.Length; i++)
         {
             if (skills[i] == null)
             {
-                skills[i].sprite = newSkill;
+                skills[i] = newSkill;
                 UpdateSkillUI(i);
                 return;
             }
