@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Dialogue
+  - Mana Pool
   layers:
   - Default
   - TransparentFX
@@ -41,6 +42,21 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 1background
+    uniqueID: 209337275
+    locked: 0
+  - name: 2cloud
+    uniqueID: 3911265281
+    locked: 0
+  - name: 3mountain
+    uniqueID: 1658780433
+    locked: 0
+  - name: player
+    uniqueID: 2091843269
+    locked: 0
+  - name: 4 floor
+    uniqueID: 1463160741
     locked: 0
   m_RenderingLayers:
   - Default
