@@ -25,25 +25,44 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator anim;
 
     private bool canDoubleJump;
+    private bool wasGrounded;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
     }
+
     private void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (IsGrounded() && !IsJumping()) // ตรวจสอบว่าผู้เล่นอยู่บนพื้นและไม่ได้กระโดด
+        {
+            if (horizontal != 0)
+            {
+                anim.Play("Cat_Walk");
+            }
+            else
+            {
+                anim.Play("Cat_Idel");
+            }
+        }
+        else if (!IsGrounded()) // ถ้าผู้เล่นไม่ได้อยู่บนพื้น (อยู่ในอากาศ)
+        {
+            anim.Play("Cat_OnAir"); // เล่นอนิเมชันเมื่อลอยอยู่ในอากาศ
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
             if (IsGrounded())
             {
-                anim.SetTrigger("Jump");
+                anim.Play("Cat_Jump");
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = true;
             }
             else if (canDoubleJump && PlayerManager.instance.Ability_DoubleJump)
             {
+                anim.Play("DoubleJumpAnimation");
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = false;
             }
@@ -61,6 +80,10 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+    }
+    private bool IsJumping()
+    {
+        return !IsGrounded() && rb.velocity.y != 0;
     }
 
     private void FixedUpdate()
@@ -122,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
                 localScale.x *= -1f;
                 transform.localScale = localScale;
             }
+
+            anim.Play("Cat_Jump");
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
