@@ -22,9 +22,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
+    [SerializeField] Animator anim;
 
     private bool canDoubleJump;
 
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -33,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (IsGrounded())
             {
+                anim.SetTrigger("Jump");
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = true;
             }
