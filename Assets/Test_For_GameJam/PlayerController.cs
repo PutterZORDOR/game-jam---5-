@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
             if (IsGrounded())
             {
                 isJumping = true;
-                Invoke(nameof(ResetJumpingState), 0.6f);
+                Invoke(nameof(ResetJumpingState), 1f);
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = true;
                 anim.Play("Cat_Jump");
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
             else if (canDoubleJump && PlayerManager.instance.Ability_DoubleJump)
             {
                 isJumping = true;
-                Invoke(nameof(ResetJumpingState), 0.6f);
+                Invoke(nameof(ResetJumpingState), 1f);
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = false;
                 anim.Play("DoubleJumpAnimation");
