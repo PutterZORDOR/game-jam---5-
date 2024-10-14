@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3352703088215530681}
   - component: {fileID: 872232352665629262}
   m_Layer: 0
-  m_Name: enemy
+  m_Name: enemyGrounded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,13 +178,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   player: {fileID: 0}
-  health: 100
+  health: 1000000000
   damage: 5
   detectionRange: 5
   patrolSpeed: 2
   patrolRange: 3
-  stopRange: 1.48
+  stopRange: 2
   jumpHeight: 3
+  jumpForce: 5
 --- !u!1 &8366388860686777529
 GameObject:
   m_ObjectHideFlags: 0
