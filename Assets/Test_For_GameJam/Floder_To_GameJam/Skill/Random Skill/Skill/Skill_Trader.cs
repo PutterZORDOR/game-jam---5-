@@ -6,7 +6,7 @@ public class Skill_Trader : MonoBehaviour
     public WeightSkill lootTable;
 
     [Header("Price")]
-    public int Price_Life;
+    public int Price;
 
     public bool CanBuy = true;
     public float detectionRadius = 5.0f;
