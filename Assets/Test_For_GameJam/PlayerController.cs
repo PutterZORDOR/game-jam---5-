@@ -25,46 +25,49 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator anim;
 
     private bool canDoubleJump;
-    private bool wasGrounded;
+    private bool isJumping = false;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
     }
-
+    private void ResetJumpingState()
+    {
+        isJumping = false;
+    }
     private void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-
-        if (IsGrounded() && !IsJumping()) // ตรวจสอบว่าผู้เล่นอยู่บนพื้นและไม่ได้กระโดด
-        {
-            if (horizontal != 0)
-            {
-                anim.Play("Cat_Walk");
-            }
-            else
-            {
-                anim.Play("Cat_Idel");
-            }
-        }
-        else if (!IsGrounded()) // ถ้าผู้เล่นไม่ได้อยู่บนพื้น (อยู่ในอากาศ)
-        {
-            anim.Play("Cat_OnAir"); // เล่นอนิเมชันเมื่อลอยอยู่ในอากาศ
-        }
 
         if (Input.GetButtonDown("Jump"))
         {
             if (IsGrounded())
             {
-                anim.Play("Cat_Jump");
+                isJumping = true;
+                Invoke(nameof(ResetJumpingState), 0.6f);
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = true;
+                anim.Play("Cat_Jump");
             }
             else if (canDoubleJump && PlayerManager.instance.Ability_DoubleJump)
             {
-                anim.Play("DoubleJumpAnimation");
+                isJumping = true;
+                Invoke(nameof(ResetJumpingState), 0.6f);
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = false;
+                anim.Play("DoubleJumpAnimation");
+            }
+        }
+
+        if (IsGrounded() && !IsJumping() && !isJumping)
+        {
+            if (horizontal != 0)
+            {
+                anim.Play("Cat_Walk");
+            }
+            else if(!isJumping)
+            {
+                anim.Play("Cat_Idel");
             }
         }
 
@@ -81,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
             Flip();
         }
     }
+
     private bool IsJumping()
     {
         return !IsGrounded() && rb.velocity.y != 0;
