@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3420313571992189653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234308028786479217}
+  - component: {fileID: 6624974759619618504}
+  m_Layer: 0
+  m_Name: Player_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1234308028786479217
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3420313571992189653}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.9062947, y: -0.57359564, z: -0.03828166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6624974759619618504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3420313571992189653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 956d6f445db52f84b8264bb5a27a5736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 0
+  Armor: 0
+  Mana: 0
+  MaxHealth: 5
+  MaxArmor: 6
+  MaxMana: 200
+  HpBar: {fileID: 0}
+  ArmorBar: {fileID: 0}
+  ManaBar: {fileID: 0}
+  textHp: {fileID: 0}
+  textArmor: {fileID: 0}
+  textMana: {fileID: 0}
+  ArmorRegenAmount: 1
+  TimeToRegen: 6
+  RegenInterval: 1
+  invulnerabilityDuration: 1.8
+  UI_GameOver: {fileID: 0}
+  blinkTime: 0.2
+  blinkColor: {r: 0.7169812, g: 0.15895337, b: 0.15895337, a: 0.5882353}
+  ghostColor: {r: 1, g: 1, b: 1, a: 0.5882353}
+  joy: {fileID: 0}
+  delayBleeding: 0
+  decreaseBleeding: 0
+  damgeMulti: 1
+  skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  skill_1: {fileID: 0}
+  skill_2: {fileID: 0}
+  Debuffs:
+  - Debuff_name: Slowness
+    sprite: {fileID: 5559816845255458102, guid: 4e655fe5477dfd64ca25bdf52056750d, type: 3}
+  - Debuff_name: Bleeding
+    sprite: {fileID: -1586536987483746111, guid: b44837085b05f1441b48237b9b58c551, type: 3}
+  debuff_1: {fileID: 0}
+  debuff_2: {fileID: 0}
+  text_debuff_1: {fileID: 0}
+  text_debuff_2: {fileID: 0}
