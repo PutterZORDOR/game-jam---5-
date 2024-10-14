@@ -17,6 +17,9 @@ public class Skill_Trader : MonoBehaviour
     public TextMeshProUGUI Type_Skill;
     public TextMeshProUGUI Description;
 
+    [Header("Button")]
+    public GameObject Button;
+
     [Header("Animator")]
     [SerializeField] Animator anim;
 
@@ -49,6 +52,14 @@ public class Skill_Trader : MonoBehaviour
                 //เล่นเสียง
             }
         }
+    }
+    public void Open_Random_Pannel()
+    {
+        Button.SetActive(false);
+    }
+    public void Close_Random_Pannel()
+    {
+        Button.SetActive(true);
     }
     public void Collect()
     {
