@@ -44,9 +44,10 @@ GameObject:
   - component: {fileID: 609697670510068587}
   - component: {fileID: 5097653092920526218}
   - component: {fileID: 530227171482602710}
+  - component: {fileID: 3185198705864850627}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +140,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1a3bb1395a4943446909e9b1657a18c3, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -212,7 +213,7 @@ MonoBehaviour:
   jumpingPower: 6.5
   wallSlidingSpeed: 2
   wallJumpingTime: 0.2
-  wallJumpingDuration: 0.5
+  wallJumpingDuration: 1
   wallJumpingPower: {x: 6.5, y: 8.5}
   rb: {fileID: 609697670510068587}
   groundCheck: {fileID: 8475155956255723408}
@@ -223,6 +224,29 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
+  anim: {fileID: 0}
+--- !u!95 &3185198705864850627
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5167248427539442024}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 134981cb5f2036d40aac8f87122587f4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5450029804944726245
 GameObject:
   m_ObjectHideFlags: 0
