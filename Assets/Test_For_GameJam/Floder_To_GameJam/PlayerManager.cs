@@ -197,6 +197,7 @@ public class PlayerManager : MonoBehaviour
 
     public void UseSkill(int slot)
     {
+        bool Checks = false;
         if (skills[slot] != null)
         {
             if (!skillOnCooldown[slot])
@@ -205,18 +206,22 @@ public class PlayerManager : MonoBehaviour
                 {
                     movement.DigDown();
                     Immune =true;
+                    Checks = true;
                 }
-                else if (skills[slot].Ability == Skill_Ability.Dash)
+                else if (skills[slot].Ability == Skill_Ability.Dash && !movement.IsGrounded())
                 {
                     movement.dashCooldown = skills[slot].cd;
                     movement.Dashing();
-                }
-                else
+                    Checks = true;
+                }else if (skills[slot] != null)
                 {
-                    Debug.Log("No recognized skill ability.");
+                    //เล่นเสียง
                 }
 
-                CooldownSkill(skills[slot].cd);
+                if(Checks)
+                {
+                    CooldownSkill(skills[slot].cd);
+                }
             }
         }
     }

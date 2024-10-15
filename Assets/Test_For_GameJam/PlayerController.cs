@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (IsGrounded() && !IsJumping() && !isJumping && !isAttacking)
+            if (IsGrounded() && !IsJumping() && !isJumping && !isAttacking && !isDashing)
             {
                 anim.SetBool("OnAir", false);
                 if (horizontal != 0)
@@ -161,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Dashing()
     {
+        anim.Play("Cat_Dash");
         StartCoroutine(Dash());
     }
     public void Die()
@@ -203,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
         return !IsGrounded() && rb.velocity.y != 0;
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
