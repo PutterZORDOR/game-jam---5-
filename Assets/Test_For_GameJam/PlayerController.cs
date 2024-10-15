@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
                 Invoke(nameof(ResetJumpingState), 1f);
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
                 canDoubleJump = false;
-                anim.Play("Cat_Jump");
+                anim.Play("Cat_DoubleJump");
             }
         }
 
