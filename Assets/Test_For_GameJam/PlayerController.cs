@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -30,6 +31,13 @@ public class PlayerMovement : MonoBehaviour
     public float attackCooldown = 1f; // คูลดาวน์โจมตี 1 วินาที
     private float attackCooldownTimer = 0f;
 
+    [Header("Dash")]
+    public float dashingPower =24f;
+    public float dashingTime = 0.2f;
+    public float dashCooldown;
+    private bool canDash = true;
+    private bool isDashing;
+
     private bool canDoubleJump;
     private bool isJumping = false;
     [SerializeField] bool isAttacking = false;
@@ -56,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!MenuManager.instance.isPaused)
         {
+            if(isDashing)
+            {
+                return;
+            }
             horizontal = Input.GetAxisRaw("Horizontal");
 
             if (attackCooldownTimer > 0)
@@ -113,6 +125,21 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    public void Dashing()
+    {
+        StartCoroutine(Dash());
+    }
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        Debug.Log("Dash");
+        rb.velocity = new Vector2(transform.localScale.x * dashingPower, rb.velocity.y);
+        yield return new WaitForSeconds(dashingTime);
+        isDashing = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    } 
     private void Attack()
     {
         Debug.Log("Attack");

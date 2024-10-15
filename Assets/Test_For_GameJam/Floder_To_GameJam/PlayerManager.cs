@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 [System.Serializable]
 public class All_Debuff
@@ -73,6 +74,9 @@ public class PlayerManager : MonoBehaviour
     public Image cooldown_2;
     public Image cooldown_3;
 
+    private float[] skillCooldownTimers = new float[3];
+    private bool[] skillOnCooldown = new bool[3];
+
     public bool Ability_DoubleJump;
 
     private void Awake()
@@ -106,10 +110,16 @@ public class PlayerManager : MonoBehaviour
         debuff_2.gameObject.SetActive(false);
         text_debuff_1.gameObject.SetActive(false);
         text_debuff_2.gameObject.SetActive(false);
+
+        cooldown_1.fillAmount = 0;
+        cooldown_2.fillAmount = 0;
+        cooldown_3.fillAmount = 0;
     }
 
     private void Update()
     {
+        UpdateCooldowns();
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             UseSkill(0);
@@ -124,6 +134,51 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private void UpdateCooldowns()
+    {
+        for (int i = 0; i < skillCooldownTimers.Length; i++)
+        {
+            if (skillOnCooldown[i])
+            {
+                skillCooldownTimers[i] -= Time.deltaTime;
+
+                if (skillCooldownTimers[i] <= 0)
+                {
+                    skillCooldownTimers[i] = 0;
+                    skillOnCooldown[i] = false;
+                }
+                UpdateCooldownUI(i);
+            }
+        }
+    }
+
+    private void UpdateCooldownUI(int slot)
+    {
+        float fillAmount = skillCooldownTimers[slot] / skills[slot].cd;
+        switch (slot)
+        {
+            case 0:
+                cooldown_1.fillAmount = fillAmount;
+                break;
+            case 1:
+                cooldown_2.fillAmount = fillAmount;
+                break;
+            case 2:
+                cooldown_3.fillAmount = fillAmount;
+                break;
+        }
+    }
+
+    private void CooldownSkill(float cd)
+    {
+        int skillIndex = Array.IndexOf(skills, skills.FirstOrDefault(s => s.cd == cd));
+        if (skillIndex != -1)
+        {
+            skillOnCooldown[skillIndex] = true;
+            skillCooldownTimers[skillIndex] = cd;
+        }
+    }
+
     private void InitializeStats()
     {
         Health = MaxHealth;
@@ -133,30 +188,38 @@ public class PlayerManager : MonoBehaviour
     {
         movement.speed = movement.speed * speed;
         movement.jumpingPower = movement.jumpingPower * speed;
+        movement.dashingPower = movement.dashingPower + speed;
     }
 
     public void UseSkill(int slot)
     {
         if (skills[slot] != null)
         {
-            if (skills[slot].Ability == Skill_Ability.Dig)
+            if (!skillOnCooldown[slot])
             {
-                Debug.Log("Skill Dig is active.");
+                if (skills[slot].Ability == Skill_Ability.Dig)
+                {
+                    Debug.Log("Skill Dig is active.");
+                }
+                else if (skills[slot].Ability == Skill_Ability.Dash)
+                {
+                    movement.dashCooldown = skills[slot].duration_ability;
+                    movement.Dashing();
+                }
+                else if (skills[slot].Ability == Skill_Ability.Giant)
+                {
+                    Debug.Log("Skill Dash is active.");
+                }
+                else
+                {
+                    Debug.Log("No recognized skill ability.");
+                }
+
+                CooldownSkill(skills[slot].cd);
             }
-            else if (skills[slot].Ability == Skill_Ability.Dash)
-            {
-                Debug.Log("Skill Dash is active.");
-            }
-            else
-            {
-                Debug.Log("No recognized skill ability.");
-            }
-        }
-        else
-        {
-            Debug.Log($"No skill in slot {slot + 1}");
         }
     }
+
     public void TakeDamgeAll(int damage)
     {
         if (isInvulnerable) return;

@@ -21,7 +21,10 @@ public class All_Skill : ScriptableObject
     [Header("CD")]
     public float cd;
 
+    [Header("Ability Duration")]
+    public float duration_ability;
+
 }
 public enum Type_Skill { Passive, Active }
 
-public enum Skill_Ability { Dig, Dash, Double_Jump, Increase_Hp, Increase_Dmg, Increase_Speed}
+public enum Skill_Ability { Dig, Dash, Double_Jump, Increase_Hp, Increase_Dmg, Increase_Speed, Giant}

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c1cc99e5fe5e9440b52adc60d7693b6, type: 3}
-  m_Name: Double_Jump
+  m_Name: Increase Speed
   m_EditorClassIdentifier: 
-  skillname: Double Jump
-  Description: "\u0E01\u0E23\u0E30\u0E42\u0E14\u0E14"
-  sprite: {fileID: -4880631200693110131, guid: 8b40bb4dafcc86947bb331b21e0535f3, type: 3}
+  skillname: Increase Speed
+  Description: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E40\u0E23\u0E47\u0E27"
+  sprite: {fileID: -2212245524087620577, guid: 8b40bb4dafcc86947bb331b21e0535f3, type: 3}
   Type: 0
-  Ability: 2
+  Ability: 5
   cd: 0

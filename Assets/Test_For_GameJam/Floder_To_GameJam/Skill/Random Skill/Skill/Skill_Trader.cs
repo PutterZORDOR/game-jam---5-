@@ -78,7 +78,7 @@ public class Skill_Trader : MonoBehaviour
             }
             else if (item.Ability == Skill_Ability.Increase_Speed) 
             {
-                PlayerManager.instance .IncreaseSpeed (0.5f);
+                PlayerManager.instance .IncreaseSpeed (1.5f);
             }
         }
         HideItem();
