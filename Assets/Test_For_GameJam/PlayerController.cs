@@ -24,9 +24,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] Animator anim;
 
+    [SerializeField] private Transform attackPoint; // ตำแหน่งที่จะตรวจสอบการปะทะของการโจมตี
+    [SerializeField] private Vector2 attackBoxSize = new Vector2(1f, 0.5f); // ขนาดของกล่องโจมตี
+    [SerializeField] private LayerMask enemyLayers; // เลเยอร์ของศัตรูที่ต้องการตรวจสอบการปะทะ
+    public float attackCooldown = 1f; // คูลดาวน์โจมตี 1 วินาที
+    private float attackCooldownTimer = 0f;
+
     private bool canDoubleJump;
     private bool isJumping = false;
-    [SerializeField] bool isAttcking = false;
+    [SerializeField] bool isAttacking = false;
 
     private void Start()
     {
@@ -36,20 +42,34 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = false;
     }
+    private void ResetAttackState()
+    {
+        Debug.Log("Reset Attack State");
+        isAttacking = false;
+        if (IsJumping())
+        {
+            anim.SetBool("OnAir", true);
+        }
+
+    }
     private void Update()
     {
-        if(!MenuManager.instance.isPaused) 
+        if (!MenuManager.instance.isPaused)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
 
-            if (!isAttcking)
+            if (attackCooldownTimer > 0)
             {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    isAttcking = true;
-                    anim.Play("Attack 1");
-                }
+                attackCooldownTimer -= Time.deltaTime;
             }
+            if (Input.GetMouseButtonDown(0) && !isAttacking && attackCooldownTimer <= 0f)
+            {
+                isAttacking = true;
+                anim.Play($"Attack {Random.Range(1,3)}");
+                Invoke(nameof(ResetAttackState), 0.4f);
+                attackCooldownTimer = attackCooldown;
+            }
+
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -71,8 +91,9 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (IsGrounded() && !IsJumping() && !isJumping && !isAttcking)
+            if (IsGrounded() && !IsJumping() && !isJumping && !isAttacking)
             {
+                anim.SetBool("OnAir", false);
                 if (horizontal != 0)
                 {
                     anim.Play("Cat_Walk");
@@ -81,16 +102,34 @@ public class PlayerMovement : MonoBehaviour
                 {
                     anim.Play("Cat_Idel");
                 }
+            }
+
+            WallSlide();
+            WallJump();
+
+            if (!isWallJumping)
+            {
+                Flip();
+            }
+        }
     }
-
-        WallSlide();
-        WallJump();
-
-        if (!isWallJumping)
+    private void Attack()
+    {
+        Debug.Log("Attack");
+        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, attackBoxSize, 0f, enemyLayers);
+        foreach (Collider2D enemy in hitEnemies)
         {
-            Flip();
+            Debug.Log("Hit " + enemy.name);
+            //enemy.GetComponent<Enemy>().TakeDamage(10);
         }
-        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(attackPoint.position, attackBoxSize);
     }
     private bool IsJumping()
     {
