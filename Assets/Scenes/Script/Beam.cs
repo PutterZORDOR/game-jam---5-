@@ -43,7 +43,6 @@ public class Beam : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Beam hit the player!");
-            Destroy(gameObject);
         }
         else
         {
