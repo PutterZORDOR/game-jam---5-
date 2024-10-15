@@ -1,13 +1,13 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-public class Projectile : MonoBehaviour {
+
+public class Projectile : MonoBehaviour
+{
     private GameObject player;
     private Rigidbody2D rb;
     public float Force;
-    [SerializeField]private int damage;
+    [SerializeField] private int damage;
 
-    void Awake() 
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player");
@@ -15,25 +15,27 @@ public class Projectile : MonoBehaviour {
 
     void OnEnable()
     {
+        // Calculate direction toward the player, but only apply force along the x-axis.
         Vector3 direction = player.transform.position - transform.position;
-        rb.velocity = new Vector2(direction.x, direction.y).normalized * Force;
 
-        float rot = Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0,rot);
+        // Apply horizontal force to the projectile, letting gravity handle the y-axis.
+        rb.velocity = new Vector2(Mathf.Sign(direction.x) * Force, rb.velocity.y);
+
+        // Optionally rotate the projectile to face the movement direction
+        transform.localScale = new Vector3(Mathf.Sign(direction.x), 1, 1);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            //player.GetComponent<Health>().TakeDamage(damage);//Player Damaged
+            // Add player damage logic here
             gameObject.SetActive(false);
         }
-
-        else if(collision.CompareTag("Wall")|| collision.CompareTag("Ground"))
+        else if (collision.CompareTag("Wall"))
         {
+            // Deactivate the projectile when hitting a wall or other obstacles
             gameObject.SetActive(false);
         }
-
     }
 }
