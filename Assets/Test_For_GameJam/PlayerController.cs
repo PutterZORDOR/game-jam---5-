@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!MenuManager.instance.isPaused)
         {
-            if(isDashing)
+            if(isDashing || PlayerManager.instance.IsDie)
             {
                 return;
             }
@@ -136,6 +136,10 @@ public class PlayerMovement : MonoBehaviour
     public void Dashing()
     {
         StartCoroutine(Dash());
+    }
+    public void Die()
+    {
+        PlayerManager.instance.Die();
     }
     private IEnumerator Dash()
     {

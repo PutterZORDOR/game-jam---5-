@@ -20,6 +20,8 @@ public class PlayerManager : MonoBehaviour
     private Coroutine debuffCoroutine2;
     public int Health;
     private PlayerMovement movement;
+    private Animator anim;
+    public bool IsDie;
 
     [Header("Start Stat")]
     public int MaxHealth;
@@ -99,6 +101,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        anim = player.GetComponent<Animator>();
         spriteRenderer = player.GetComponent<SpriteRenderer>();
         movement = player.GetComponent<PlayerMovement>();
         InitializeStats();
@@ -131,6 +134,11 @@ public class PlayerManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             UseSkill(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamgeAll(1);
         }
     }
 
@@ -248,7 +256,9 @@ public class PlayerManager : MonoBehaviour
 
         if (Health <= 0)
         {
-            Die();
+            IsDie = true;
+            player.tag = "Untagged";
+            anim.Play("Cat_Die");
         }
     }
 
@@ -272,8 +282,7 @@ public class PlayerManager : MonoBehaviour
         HpBar.fillAmount = (float)Health / MaxHealth;
         UpdateUIHp();
     }
-
-    private void Die()
+    public void Die()
     {
         Time.timeScale = 0f;
         UI_GameOver.SetActive(true);
