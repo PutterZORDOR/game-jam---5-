@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Patrol left and right when the player is not in range
-    protected void Patrol()
+    protected virtual void Patrol() // Marked as virtual
     {
         rb.velocity = new Vector2(patrolDirection * patrolSpeed, rb.velocity.y);
 
