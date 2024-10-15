@@ -2764,7 +2764,7 @@ PrefabInstance:
       objectReference: {fileID: 11328646}
     - target: {fileID: 452251005735328534, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
       propertyPath: lootTable.list.Array.size
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 452251005735328534, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
       propertyPath: lootTable.list.Array.data[0].weight
@@ -2817,7 +2817,7 @@ PrefabInstance:
     - target: {fileID: 452251005735328534, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
       propertyPath: lootTable.list.Array.data[5].itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 165bd4e33003e234eb36034bd37ecbce, type: 2}
+      objectReference: {fileID: 11400000, guid: 354b3ee881548fd41aabc2e1f2c8fca7, type: 2}
     - target: {fileID: 452251005735328534, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
       propertyPath: lootTable.list.Array.data[6].itemData
       value: 
@@ -3175,11 +3175,11 @@ PrefabInstance:
       objectReference: {fileID: 104154057}
     - target: {fileID: 530227171482602710, guid: a2d4e1f2e77c5f247bdf248923bf7110, type: 3}
       propertyPath: dashingTime
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 530227171482602710, guid: a2d4e1f2e77c5f247bdf248923bf7110, type: 3}
       propertyPath: dashingPower
-      value: 50
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 530227171482602710, guid: a2d4e1f2e77c5f247bdf248923bf7110, type: 3}
       propertyPath: jumpingPower
