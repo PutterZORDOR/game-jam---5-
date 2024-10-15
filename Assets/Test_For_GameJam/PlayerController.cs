@@ -125,6 +125,14 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+    private void FixedUpdate()
+    {
+        if (!isWallJumping && !isDashing) // ตรวจสอบว่ากำลัง Dash อยู่หรือไม่
+        {
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        }
+    }
+
     public void Dashing()
     {
         StartCoroutine(Dash());
@@ -133,9 +141,11 @@ public class PlayerMovement : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        Debug.Log("Dash");
-        rb.velocity = new Vector2(transform.localScale.x * dashingPower, rb.velocity.y);
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
         yield return new WaitForSeconds(dashingTime);
+        rb.gravityScale = originalGravity;
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
@@ -161,14 +171,6 @@ public class PlayerMovement : MonoBehaviour
     private bool IsJumping()
     {
         return !IsGrounded() && rb.velocity.y != 0;
-    }
-
-    private void FixedUpdate()
-    {
-        if (!isWallJumping)
-        {
-            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-        }
     }
 
     private bool IsGrounded()
