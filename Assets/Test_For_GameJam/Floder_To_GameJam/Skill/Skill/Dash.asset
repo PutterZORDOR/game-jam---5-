@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c1cc99e5fe5e9440b52adc60d7693b6, type: 3}
-  m_Name: Dig
+  m_Name: Dash
   m_EditorClassIdentifier: 
-  skillname: Dig
-  Description: "\u0E02\u0E38\u0E14\u0E14\u0E34\u0E19"
+  skillname: Dash
+  Description: "\u0E1E\u0E38\u0E48\u0E07"
   sprite: {fileID: 0}
   Type: 1
-  Ability: 0
-  cd: 18
+  Ability: 1
+  cd: 4

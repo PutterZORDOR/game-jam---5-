@@ -68,6 +68,11 @@ public class PlayerManager : MonoBehaviour
     public TextMeshProUGUI text_debuff_1;
     public TextMeshProUGUI text_debuff_2;
 
+    [Header("Cooldown Skill")]
+    public Image cooldown_1;
+    public Image cooldown_2;
+    public Image cooldown_3;
+
     public bool Ability_DoubleJump;
 
     private void Awake()
@@ -134,14 +139,24 @@ public class PlayerManager : MonoBehaviour
     {
         if (skills[slot] != null)
         {
-            
+            if (skills[slot].Ability == Skill_Ability.Dig)
+            {
+                Debug.Log("Skill Dig is active.");
+            }
+            else if (skills[slot].Ability == Skill_Ability.Dash)
+            {
+                Debug.Log("Skill Dash is active.");
+            }
+            else
+            {
+                Debug.Log("No recognized skill ability.");
+            }
         }
         else
         {
             Debug.Log($"No skill in slot {slot + 1}");
         }
     }
-
     public void TakeDamgeAll(int damage)
     {
         if (isInvulnerable) return;
@@ -294,5 +309,96 @@ public class PlayerManager : MonoBehaviour
                 skill_3.gameObject.SetActive(false);
             }
         }
+    }
+    public Sprite GetDebuffSprite(string debuffName)
+    {
+        // ดึง Sprite ของ Debuff จากชื่อ
+        if (debuff_storage.TryGetValue(debuffName, out Sprite sprite))
+        {
+            return sprite;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void ApplyDebuff(string debuffName, int timer)
+    {
+        Sprite debuffSprite = GetDebuffSprite(debuffName);
+        if (debuffSprite != null)
+        {
+            if (debuff_1.sprite == null || debuff_1.sprite == debuffSprite)
+            {
+                ApplyDebuffToSlot(debuff_1, text_debuff_1, ref debuffCoroutine1, debuffSprite, debuffName, timer);
+            }
+            else if (debuff_2.sprite == null || debuff_2.sprite == debuffSprite)
+            {
+                ApplyDebuffToSlot(debuff_2, text_debuff_2, ref debuffCoroutine2, debuffSprite, debuffName, timer);
+            }
+        }
+    }
+
+    private void ApplyDebuffToSlot(Image debuffIcon, TextMeshProUGUI debuffText, ref Coroutine debuffCoroutine, Sprite debuffSprite, string debuffName, int timer)
+    {
+        debuffIcon.sprite = debuffSprite;
+        debuffIcon.gameObject.SetActive(true);
+        debuffText.gameObject.SetActive(true);
+
+        if (debuffCoroutine != null)
+        {
+            StopCoroutine(debuffCoroutine);
+        }
+        debuffCoroutine = StartCoroutine(DebuffCountdown(debuffIcon, debuffText, debuffName, timer));
+    }
+
+    private IEnumerator DebuffCountdown(Image debuffIcon, TextMeshProUGUI debuffText, string debuffName, int timer)
+    {
+        float countdownTime = timer;
+        debuffText.text = $"{countdownTime.ToString("F0")}s";
+
+        while (countdownTime > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            countdownTime--;
+            debuffText.text = $"{countdownTime.ToString("F0")}s";
+        }
+
+        RemoveDebuff(debuffIcon, debuffText, debuffName);
+    }
+
+    private void RemoveDebuff(Image debuffIcon, TextMeshProUGUI debuffText, string debuffName)
+    {
+        if (debuff_2.sprite != null && debuffIcon == debuff_1)
+        {
+            debuff_1.sprite = debuff_2.sprite;
+            debuff_1.gameObject.SetActive(true);
+            text_debuff_1.gameObject.SetActive(true);
+            text_debuff_1.text = text_debuff_2.text;
+
+            StopCoroutine(debuffCoroutine2);
+            debuffCoroutine1 = StartCoroutine(DebuffCountdown(debuff_1, text_debuff_1, debuffName, GetRemainingDebuffTime(text_debuff_2.text)));
+
+            debuff_2.sprite = null;
+            debuff_2.gameObject.SetActive(false);
+            text_debuff_2.text = "";
+            text_debuff_2.gameObject.SetActive(false);
+        }
+        else
+        {
+            debuffIcon.sprite = null;
+            debuffIcon.gameObject.SetActive(false);
+            debuffText.text = "";
+            debuffText.gameObject.SetActive(false);
+        }
+    }
+
+    private int GetRemainingDebuffTime(string debuffText)
+    {
+        if (int.TryParse(debuffText.Replace("s", ""), out int remainingTime))
+        {
+            return remainingTime;
+        }
+        return 0;
     }
 }
