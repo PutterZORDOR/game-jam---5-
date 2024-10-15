@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 isAttacking = true;
                 anim.Play($"Attack {Random.Range(1,3)}");
-                Invoke(nameof(ResetAttackState), 0.4f);
+                Invoke(nameof(ResetAttackState), 0.3f);
                 attackCooldownTimer = attackCooldown;
             }
 
