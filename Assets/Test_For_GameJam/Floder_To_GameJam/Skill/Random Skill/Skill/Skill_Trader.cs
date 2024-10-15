@@ -49,6 +49,7 @@ public class Skill_Trader : MonoBehaviour
             CanBuy = false;
             CanBuy = true;
             //anim เปิดกล่อง เล่นฟังชั่น Showitem
+            ShowItem();
         }
         else
         {
