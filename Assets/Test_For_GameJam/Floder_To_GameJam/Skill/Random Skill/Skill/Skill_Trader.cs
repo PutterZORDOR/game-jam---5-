@@ -47,10 +47,6 @@ public class Skill_Trader : MonoBehaviour
         {
             CoinManager.instance.SpendCoins(Price);
             CanBuy = false;
-            for (int i = 0; i < text_skill.Count; i++)
-            {
-                text_skill[i].SetActive(false);
-            }
             CanBuy = true;
             //anim เปิดกล่อง เล่นฟังชั่น Showitem
         }
@@ -104,19 +100,23 @@ public class Skill_Trader : MonoBehaviour
         Type_Skill_text.text = "";
         Description.text = "";
         Show_Item_Pannel.SetActive(false);
+        for (int i = 0; i < text_skill.Count; i++)
+        {
+            text_skill[i].SetActive(true);
+        }
         CloseBox();
     }
     void CloseBox()
     {
         anim.Play("Chest_Idel");
-        for (int i = 0; i < text_skill.Count; i++)
-        {
-            text_skill[i].SetActive(true);
-        }
         CanBuy = true;
     }
     public void ShowItem()
     {
+        for (int i = 0; i < text_skill.Count; i++)
+        {
+            text_skill[i].SetActive(false);
+        }
         item = lootTable.GetRandom();
         skill_Sprite.sprite = item.sprite;
         skill_name.text = $": {item.skillname} :";
