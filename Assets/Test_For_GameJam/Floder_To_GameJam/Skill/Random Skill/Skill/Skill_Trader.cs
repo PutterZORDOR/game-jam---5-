@@ -33,17 +33,10 @@ public class Skill_Trader : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
-    void Update()
-    {
-        if (CanBuy)
-        {
-            Buy();
-        }
-    }
 
     public void Buy()
     {
-        if (CoinManager.instance.Coins >= Price)
+        if (CoinManager.instance.Coins >= Price && CanBuy)
         {
             CoinManager.instance.SpendCoins(Price);
             CanBuy = false;
@@ -96,6 +89,7 @@ public class Skill_Trader : MonoBehaviour
     }
     void HideItem()
     {
+        MenuManager.instance.ItemStuck = false;
         skill_Sprite.sprite = null;
         skill_name.text = "";
         Type_Skill_text.text = "";
@@ -114,6 +108,7 @@ public class Skill_Trader : MonoBehaviour
     }
     public void ShowItem()
     {
+        MenuManager.instance.ItemStuck = true;
         for (int i = 0; i < text_skill.Count; i++)
         {
             text_skill[i].SetActive(false);

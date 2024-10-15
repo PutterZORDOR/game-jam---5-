@@ -38,48 +38,50 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
-
-        if (!isAttcking)
+        if(!MenuManager.instance.isPaused) 
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                isAttcking = true;
-                anim.Play("Attack 1");
-            }
-        }
+            horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (IsGrounded())
+            if (!isAttcking)
             {
-                isJumping = true;
-                anim.Play("Cat_Jump");
-                Invoke(nameof(ResetJumpingState), 1f);
-                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-                canDoubleJump = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    isAttcking = true;
+                    anim.Play("Attack 1");
+                }
             }
-            else if (canDoubleJump && PlayerManager.instance.Ability_DoubleJump)
-            {
-                isJumping = true;
-                anim.Play("Cat_DoubleJump");
-                Invoke(nameof(ResetJumpingState), 1f);
-                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
-                canDoubleJump = false;
-            }
-        }
 
-        if (IsGrounded() && !IsJumping() && !isJumping && !isAttcking)
-        {
-            if (horizontal != 0)
+            if (Input.GetButtonDown("Jump"))
             {
-                anim.Play("Cat_Walk");
+                if (IsGrounded())
+                {
+                    isJumping = true;
+                    anim.Play("Cat_Jump");
+                    Invoke(nameof(ResetJumpingState), 1f);
+                    rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+                    canDoubleJump = true;
+                }
+                else if (canDoubleJump && PlayerManager.instance.Ability_DoubleJump)
+                {
+                    isJumping = true;
+                    anim.Play("Cat_DoubleJump");
+                    Invoke(nameof(ResetJumpingState), 1f);
+                    rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+                    canDoubleJump = false;
+                }
             }
-            else
+
+            if (IsGrounded() && !IsJumping() && !isJumping && !isAttcking)
             {
-                anim.Play("Cat_Idel");
-            }
-        }
+                if (horizontal != 0)
+                {
+                    anim.Play("Cat_Walk");
+                }
+                else
+                {
+                    anim.Play("Cat_Idel");
+                }
+    }
 
         WallSlide();
         WallJump();
@@ -88,8 +90,8 @@ public class PlayerMovement : MonoBehaviour
         {
             Flip();
         }
+        }
     }
-
     private bool IsJumping()
     {
         return !IsGrounded() && rb.velocity.y != 0;

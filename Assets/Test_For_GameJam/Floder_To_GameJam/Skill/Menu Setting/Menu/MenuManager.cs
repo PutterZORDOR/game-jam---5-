@@ -6,6 +6,8 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance;
 
     public bool isPaused;
+    public bool RandomMenu;
+    public bool ItemStuck;
     [Header("UI Controller")]
     public GameObject Menu;
     public GameObject SoundMenu;
@@ -20,6 +22,20 @@ public class MenuManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            if(!isPaused)
+            {
+                PauseGame();
+            }
+            else
+            {
+                ResumeGame();
+            }
+        }
+    }
     public void PauseGame()
     {
         Menu.SetActive(true);
@@ -30,8 +46,11 @@ public class MenuManager : MonoBehaviour
     public void ResumeGame()
     {
         Menu.SetActive(false);
-        Time.timeScale = 1f;
         isPaused = false;
+        if (!RandomMenu && !isPaused)
+        {
+            Time.timeScale = 1f;
+        }
     }
     public void OpenSoundMenu()
     {
