@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool canDoubleJump;
     private bool isJumping = false;
+    [SerializeField] bool isAttcking = false;
 
     private void Start()
     {
@@ -38,6 +39,15 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (!isAttcking)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                isAttcking = true;
+                anim.Play("Attack 1");
+            }
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -59,21 +69,16 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (IsGrounded() && !IsJumping() && !isJumping)
+        if (IsGrounded() && !IsJumping() && !isJumping && !isAttcking)
         {
             if (horizontal != 0)
             {
                 anim.Play("Cat_Walk");
             }
-            else if(!isJumping)
+            else
             {
                 anim.Play("Cat_Idel");
             }
-        }
-
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
 
         WallSlide();
