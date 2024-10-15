@@ -17,5 +17,5 @@ MonoBehaviour:
   sprite: {fileID: -8700277438705217090, guid: 8b40bb4dafcc86947bb331b21e0535f3, type: 3}
   Type: 1
   Ability: 0
-  cd: 18
-  duration_ability: 0
+  cd: 20
+  duration_ability: 7

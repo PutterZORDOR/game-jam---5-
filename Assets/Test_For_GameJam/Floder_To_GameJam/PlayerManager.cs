@@ -80,6 +80,7 @@ public class PlayerManager : MonoBehaviour
     private bool[] skillOnCooldown = new bool[3];
 
     public bool Ability_DoubleJump;
+    public bool Immune;
 
     private void Awake()
     {
@@ -135,11 +136,6 @@ public class PlayerManager : MonoBehaviour
         {
             UseSkill(2);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamgeAll(1);
-        }
     }
 
     private void UpdateCooldowns()
@@ -194,8 +190,8 @@ public class PlayerManager : MonoBehaviour
     }
     public void IncreaseSpeed(float speed)
     {
-        movement.speed = movement.speed * speed;
-        movement.jumpingPower = movement.jumpingPower * speed;
+        movement.speed = movement.speed + speed;
+        movement.jumpingPower = movement.jumpingPower + speed;
         movement.dashingPower = movement.dashingPower + speed;
     }
 
@@ -207,16 +203,13 @@ public class PlayerManager : MonoBehaviour
             {
                 if (skills[slot].Ability == Skill_Ability.Dig)
                 {
-                    Debug.Log("Skill Dig is active.");
+                    movement.DigDown();
+                    Immune =true;
                 }
                 else if (skills[slot].Ability == Skill_Ability.Dash)
                 {
-                    movement.dashCooldown = skills[slot].duration_ability;
+                    movement.dashCooldown = skills[slot].cd;
                     movement.Dashing();
-                }
-                else if (skills[slot].Ability == Skill_Ability.Giant)
-                {
-                    Debug.Log("Skill Dash is active.");
                 }
                 else
                 {
@@ -230,10 +223,13 @@ public class PlayerManager : MonoBehaviour
 
     public void TakeDamgeAll(int damage)
     {
-        if (isInvulnerable) return;
+        if (!Immune)
+        {
+            if (isInvulnerable) return;
 
-        TakeDamageHp(damage);
-        StartCoroutine(InvulnerabilityTimer());
+            TakeDamageHp(damage);
+            StartCoroutine(InvulnerabilityTimer());
+        }
     }
 
     private IEnumerator InvulnerabilityTimer()

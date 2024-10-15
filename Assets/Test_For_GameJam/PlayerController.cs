@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.Android.Gradle;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -25,10 +26,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] Animator anim;
 
-    [SerializeField] private Transform attackPoint; // ตำแหน่งที่จะตรวจสอบการปะทะของการโจมตี
-    [SerializeField] private Vector2 attackBoxSize = new Vector2(1f, 0.5f); // ขนาดของกล่องโจมตี
-    [SerializeField] private LayerMask enemyLayers; // เลเยอร์ของศัตรูที่ต้องการตรวจสอบการปะทะ
-    public float attackCooldown = 1f; // คูลดาวน์โจมตี 1 วินาที
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private Vector2 attackBoxSize = new Vector2(1f, 0.5f);
+    [SerializeField] private LayerMask enemyLayers;
+    public float attackCooldown = 1f;
     private float attackCooldownTimer = 0f;
 
     [Header("Dash")]
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     private bool canDoubleJump;
     private bool isJumping = false;
     [SerializeField] bool isAttacking = false;
+    private bool Digging;
 
     private void Start()
     {
@@ -64,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!MenuManager.instance.isPaused)
         {
-            if(isDashing || PlayerManager.instance.IsDie)
+            if(isDashing || PlayerManager.instance.IsDie || Digging)
             {
                 return;
             }
@@ -127,12 +129,36 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!isWallJumping && !isDashing) // ตรวจสอบว่ากำลัง Dash อยู่หรือไม่
+        if (!isWallJumping && !isDashing)
         {
             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
     }
-
+    public void DigDown()
+    {
+        gameObject.tag = "Untagged";
+        Digging = true;
+        anim.Play("Cat_DigDown");
+    }
+    public void FinishedDigDown()
+    {
+        StartCoroutine(WaitForDigUp());
+    }
+    private IEnumerator WaitForDigUp()
+    {
+        yield return new WaitForSeconds(7f);
+        DigUp();
+    }
+    public void DigUp()
+    {
+        anim.Play("Cat_DigUp");
+    }
+    public void FinishedDigUp()
+    {
+        gameObject.tag = "Player";
+        Digging = false;
+        PlayerManager.instance.Immune = false;
+    }
     public void Dashing()
     {
         StartCoroutine(Dash());
