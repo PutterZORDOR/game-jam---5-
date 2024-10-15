@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillname: Double Jump
   Description: "\u0E01\u0E23\u0E30\u0E42\u0E14\u0E14"
-  gamePrefab: {fileID: 0}
   sprite: {fileID: 0}
   Type: 0
+  Ability: 2
   cd: 0

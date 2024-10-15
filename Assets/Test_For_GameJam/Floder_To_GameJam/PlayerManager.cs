@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     private Coroutine debuffCoroutine1;
     private Coroutine debuffCoroutine2;
     public int Health;
+    private PlayerMovement movement;
 
     [Header("Start Stat")]
     public int MaxHealth;
@@ -90,6 +91,7 @@ public class PlayerManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         spriteRenderer = player.GetComponent<SpriteRenderer>();
+        movement = player.GetComponent<PlayerMovement>();
         InitializeStats();
 
         skill_1.gameObject.SetActive(false);
@@ -121,6 +123,11 @@ public class PlayerManager : MonoBehaviour
     {
         Health = MaxHealth;
         UpdateUIHp();
+    }
+    public void IncreaseSpeed(float speed)
+    {
+        movement.speed = movement.speed * speed;
+        movement.jumpingPower = movement.jumpingPower * speed;
     }
 
     public void UseSkill(int slot)

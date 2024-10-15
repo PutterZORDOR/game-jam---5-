@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class Open_Skill_Pannel : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Random Pannel")]
+    public GameObject Random_Pannel;
 
-    // Update is called once per frame
-    void Update()
+    public void Open_Random_Pannel()
     {
-        
+        Random_Pannel.SetActive(true);
+    }
+    public void Close_Random_Pannel()
+    {
+        Random_Pannel.SetActive(false);
     }
 }
