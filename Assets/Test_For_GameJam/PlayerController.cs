@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !isAttacking && attackCooldownTimer <= 0f)
             {
                 isAttacking = true;
-                anim.Play($"Attack {Random.Range(1,3)}");
+                anim.Play($"Attack {Random.Range(1,4)}");
                 Invoke(nameof(ResetAttackState), 0.3f);
                 attackCooldownTimer = attackCooldown;
             }
