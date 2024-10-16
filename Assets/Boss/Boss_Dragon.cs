@@ -25,14 +25,21 @@ public class Boss_Dragon : MonoBehaviour
     public float projectileSpeed = 5f; // ความเร็วของโปรเจคไทล์
     public float shootCooldown = 5f; // คูลดาวน์การยิงโปรเจคไทล์
 
+    [Header("Player")]
+    public GameObject player;
+
+    [Header("Shooting Settings")]
+    public Transform[] bulletSpawnPoints;
+
     private int currentWaypointIndex = 0; // ตัวแปรเก็บตำแหน่งจุดทางเดินปัจจุบัน
-    private bool isAttacking = false; // ตัวแปรเช็คสถานะการโจมตี
     private bool isMoving = false; // ตัวแปรเช็คสถานะการเคลื่อนที่
+    private bool isUsingSkill = false; // ตัวแปรเช็คสถานะการใช้สกิล
+    private bool isShooting = false; // ตัวแปรเช็คสถานะการยิง
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         currentHealth = maxHealth;
-        StartCoroutine(MoveAndAttackRoutine()); // เริ่มต้นการเคลื่อนที่และโจมตี
     }
 
     private void Update()
@@ -40,35 +47,76 @@ public class Boss_Dragon : MonoBehaviour
         if (!isMoving)
         {
             MoveToWaypoint();
+            if (!isShooting)
+            {
+                StartCoroutine(ShootAtPlayerContinuously());
+            }
+        }
+
+        // เริ่มใช้สกิลเมื่อถึงจุดที่กำหนด
+        if (!isUsingSkill && !isMoving)
+        {
+            StartCoroutine(UseSkillPattern());
+        }
+    }
+    private IEnumerator ShootAtPlayerContinuously()
+    {
+        isShooting = true; // ตั้งค่าสถานะการยิงให้เป็นจริง
+        while (true) // ลูปตลอดไป
+        {
+            // สุ่มเลือก spawn point
+            int randomIndex = Random.Range(0, bulletSpawnPoints.Length);
+            Transform bulletSpawnPoint = bulletSpawnPoints[randomIndex];
+
+            // คำนวณทิศทางการยิงไปยังผู้เล่น
+            Vector2 direction = (player.transform.position - bulletSpawnPoint.position).normalized;
+
+            // ดึงโปรเจกไทล์จาก Object Pool
+            GameObject projectile = ObjectPool.instance.GetProjectile(2);
+            if (projectile != null)
+            {
+                projectile.transform.position = bulletSpawnPoint.position; // ใช้ตำแหน่งจุดยิง
+                projectile.SetActive(true);
+
+                // กำหนดความเร็ว
+                Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.velocity = direction * projectileSpeed; // ตั้งค่าความเร็ว
+                }
+            }
+
+            yield return new WaitForSeconds(shootCooldown); // รอคูลดาวน์ก่อนยิงอีกครั้ง
         }
     }
 
-    private IEnumerator MoveAndAttackRoutine()
+    private IEnumerator UseSkillPattern()
     {
-        while (true)
-        {
-            // เปิดอัมมะตะ
-            isImmortal = true;
-            yield return new WaitForSeconds(2f); // เปิดอัมมะตะ 2 วินาที
+        isUsingSkill = true;
 
+        // เปิดอัมมะตะ
+        isImmortal = true;
+
+        // ใช้ทักษะ meteor สองครั้ง
+        for (int i = 0; i < 2; i++)
+        {
             // เสกอุกกาบาต
-            for (int i = 0; i < meteorCount; i++)
+            for (int j = 0; j < meteorCount; j++)
             {
                 SpawnMeteor();
                 yield return new WaitForSeconds(attackCooldown);
             }
 
-            // ยิงโปรเจคไทล์
+            // ยิงโปรเจคไทล์ในขณะที่ยิงอุกกาบาต
             StartCoroutine(ShootProjectilesRoutine());
-
-            // ปิดอัมมะตะ
-            isImmortal = false;
-
-            // หยุดเคลื่อนที่ 5 วินาที
-            isMoving = true;
-            yield return new WaitForSeconds(5f);
-            isMoving = false;
         }
+
+        isImmortal = false;
+        isMoving = true;
+        yield return new WaitForSeconds(6f);
+        isMoving = false;
+
+        isUsingSkill = false; // รีเซ็ตสถานะการใช้สกิล
     }
 
     private void MoveToWaypoint()
@@ -101,13 +149,16 @@ public class Boss_Dragon : MonoBehaviour
 
     private void SpawnMeteor()
     {
-        int randomIndex = Random.Range(0, meteorSpawnPoints.Length);
-        Transform spawnPoint = meteorSpawnPoints[randomIndex];
-        GameObject meteor = ObjectPool.instance.GetProjectile(0);
-        if (meteor != null)
+        if (isImmortal)
         {
-            meteor.transform.position = spawnPoint.position;
-            meteor.SetActive(true);
+            int randomIndex = Random.Range(0, meteorSpawnPoints.Length);
+            Transform spawnPoint = meteorSpawnPoints[randomIndex];
+            GameObject meteor = ObjectPool.instance.GetProjectile(0);
+            if (meteor != null)
+            {
+                meteor.transform.position = spawnPoint.position;
+                meteor.SetActive(true);
+            }
         }
     }
 
@@ -115,6 +166,12 @@ public class Boss_Dragon : MonoBehaviour
     {
         for (int i = 0; i < projectileCount; i++)
         {
+            // ตรวจสอบว่าบอสอยู่ในสถานะอมตะหรือไม่
+            if (!isImmortal)
+            {
+                yield break; // ออกจาก routine หากอยู่ในสถานะอมตะ
+            }
+
             // สุ่มมุมระหว่าง 20 ถึง 35 องศา
             float angle = Random.Range(20f, 35f);
             float horizontalAngle = Random.Range(-45f, 45f);

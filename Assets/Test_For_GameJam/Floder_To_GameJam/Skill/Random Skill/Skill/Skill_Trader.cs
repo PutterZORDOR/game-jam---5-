@@ -71,6 +71,7 @@ public class Skill_Trader : MonoBehaviour
             else if(item.Ability == Skill_Ability.Increase_Hp)
             {
                 PlayerManager.instance.IncreaseMaxHealth(1);
+                PlayerManager.instance.Heal(1);
             }
             else if (item.Ability == Skill_Ability.Increase_Dmg)
             {

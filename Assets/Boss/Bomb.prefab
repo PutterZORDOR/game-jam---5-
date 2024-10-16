@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68013dd325090c64b9c102fad82ce552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minLifespan: 1
-  maxLifespan: 4
+  minLifespan: 2.2
+  maxLifespan: 5
   damageRadius: 1.5
   damageAmount: 1
 --- !u!58 &-4247580315458983177
