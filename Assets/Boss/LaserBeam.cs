@@ -16,25 +16,26 @@ public class LaserBeam : MonoBehaviour
     private bool shrinking = false; // สถานะของการย่อเลเซอร์
 
     public GameObject pre_laser; // เลเซอร์ที่จะโชว์ก่อน
-    public GameObject actualLaser; // เลเซอร์จริงที่ยิง
+    private void Start()
+    {
+        initialScale = transform.localScale; // ตั้งค่าขนาดเริ่มต้นใน Start()
+        initialPosition = transform.position; // ตั้งค่าตำแหน่งเริ่มต้น
+    }
+
 
     public void FireLaser()
     {
         // แสดง pre_laser
         pre_laser.SetActive(true);
-        actualLaser.SetActive(false); // ซ่อนเลเซอร์จริงก่อน
 
         StartCoroutine(HandleLaserPreparation());
     }
 
     private IEnumerator HandleLaserPreparation()
     {
-        // รอ 1.2 วินาที
         yield return new WaitForSeconds(1.2f);
 
-        // ซ่อน pre_laser และแสดงเลเซอร์จริง
         pre_laser.SetActive(false);
-        actualLaser.SetActive(true);
 
         laserActive = true;
         shrinking = false;
@@ -43,6 +44,7 @@ public class LaserBeam : MonoBehaviour
 
         StartCoroutine(HandleLaserDuration());
     }
+
 
     void Update()
     {

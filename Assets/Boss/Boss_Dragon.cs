@@ -41,12 +41,15 @@ public class Boss_Dragon : MonoBehaviour
     private bool isShooting = false; // ตัวแปรเช็คสถานะการยิง
 
     private bool changeState;
-    private bool isChangingAttackPattern = false;
+    private SpriteRenderer spriteRenderer;
+
+    private bool isShootingLaser = false; // ตัวแปรเช็คสถานะการยิงเลเซอร์
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         currentHealth = maxHealth;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -67,52 +70,101 @@ public class Boss_Dragon : MonoBehaviour
                 StartCoroutine(UseSkillPattern());
             }
         }
-        else
+        else if (!isShootingLaser)
         {
-            //เล่น animation
+             ExecuteLaserAttackPattern();
         }
     }
+    private void ExecuteLaserAttackPattern()
+    {
+
+        if (!isShootingLaser)
+        {
+            // เริ่มยิงเลเซอร์
+            isShootingLaser = true;
+
+            // ยิงเลเซอร์ที่ 1 และ 3 ของ lazerX
+            ShootLaserX(0);
+            ShootLaserX(2);
+
+            // ใช้เวลาสั้น ๆ ก่อนยิงต่อไป
+            StartCoroutine(WaitThenShootAgain());
+        }
+    }
+
+    private IEnumerator WaitThenShootAgain()
+    {
+        yield return new WaitForSeconds(3.2f); // รอระยะเวลาสั้น ๆ
+
+        // ยิงเลเซอร์ที่ 2 ของ lazerX และเลเซอร์ที่ 3 ของ lazerY
+        ShootLaserX(1);
+        ShootLaserY(2);
+
+        // รอระยะเวลาสั้น ๆ ก่อนยิงต่อไป
+        yield return new WaitForSeconds(3.2f);
+
+        // ยิงเลเซอร์ที่ 1 และ 3 อีกครั้ง
+        ShootLaserX(0);
+        ShootLaserX(2);
+        ShootLaserY(1);
+
+        yield return StartCoroutine(NewAttackPattern());
+    }
+
+    private void ShootLaserX(int index)
+    {
+        if (index >= 0 && index < lazerX.Length)
+        {
+            GameObject laser = lazerX[index];
+            laser.SetActive(true);
+            LaserBeam laserBeam = laser.GetComponent<LaserBeam>();
+
+            if (laserBeam != null)
+            {
+                laserBeam.FireLaser();
+            }
+        }
+    }
+
+    private void ShootLaserY(int index)
+    {
+        if (index >= 0 && index < lazerY.Length)
+        {
+            GameObject laser = lazerY[index];
+            laser.SetActive(true);
+            LaserBeamY laserBeam = laser.GetComponent<LaserBeamY>();
+
+            if (laserBeam != null)
+            {
+                laserBeam.FireLaser();
+            }
+        }
+    }
+
     public void ChangeState()
     {
         moveSpeed = moveSpeed * 2.3f;
         changeState = true;
 
-        if (!isChangingAttackPattern)
-        {
-            StartCoroutine(NewAttackPattern());
-        }
+        StartCoroutine(NewAttackPattern());
     }
     private IEnumerator NewAttackPattern()
     {
-        isChangingAttackPattern = true; // ตั้งค่าสถานะการเปลี่ยนแพทเทิร์นการโจมตีให้เป็นจริง
-
         // ยิงเลเซอร์ในแกน Y
-        yield return ShootLaserY();
+        yield return StartCoroutine(ShootLaserY()); // เพิ่มการรอการทำงานของ Coroutine
 
         // ยิงเลเซอร์ในแกน X
-        yield return ShootLaserX();
+        yield return StartCoroutine(ShootLaserX()); // เพิ่มการรอการทำงานของ Coroutine
 
         // หยุดอยู่กับที่
         isMoving = false;
-
-        // เล่นฟังก์ชัน spawn meteor
-        while (currentHealth > 0) // เมื่อบอสยังมีชีวิตอยู่
-        {
-            for (int j = 0; j < meteorCount; j++)
-            {
-                SpawnMeteor();
-                yield return new WaitForSeconds(attackCooldown); // รอคูลดาวน์ระหว่างการ spawn
-            }
-
-            yield return new WaitForSeconds(2f); // รอระยะเวลาระหว่างการยิงอุกกาบาตครั้งต่อไป
-        }
-
-        isChangingAttackPattern = false; // เปลี่ยนสถานะการเปลี่ยนแพทเทิร์นการโจมตีกลับ
+        isShootingLaser = false;
     }
 
     private IEnumerator ShootLaserX()
     {
-        // ค้นหาจุดยิงเลเซอร์จาก lazerX
+        Debug.Log("เริ่มยิงเลเซอร์ X"); // ตรวจสอบว่าฟังก์ชันถูกเรียก
+                                        // ค้นหาจุดยิงเลเซอร์จาก lazerX
         foreach (GameObject laser in lazerX)
         {
             laser.SetActive(true); // เปิดใช้งานเลเซอร์
@@ -121,29 +173,42 @@ public class Boss_Dragon : MonoBehaviour
             if (laserBeam != null)
             {
                 laserBeam.FireLaser(); // เรียกใช้เมธอดยิงเลเซอร์
+                Debug.Log("ยิงเลเซอร์ X: " + laser.name); // ตรวจสอบเลเซอร์ที่ถูกยิง
+            }
+            else
+            {
+                Debug.LogError("ไม่พบ LaserBeam ใน: " + laser.name);
             }
 
             // รอให้ยิงเสร็จ
-            yield return new WaitForSeconds(1.3f); // รอระยะเวลาระหว่างการยิง
+            yield return new WaitForSeconds(2.7f); // รอระยะเวลาระหว่างการยิง
         }
     }
+
     private IEnumerator ShootLaserY()
     {
-        // ค้นหาจุดยิงเลเซอร์จาก lazerY
+        Debug.Log("เริ่มยิงเลเซอร์ Y"); // ตรวจสอบว่าฟังก์ชันถูกเรียก
+                                        // ค้นหาจุดยิงเลเซอร์จาก lazerY
         foreach (GameObject laser in lazerY)
         {
             laser.SetActive(true); // เปิดใช้งานเลเซอร์
-            LaserBeam laserBeam = laser.GetComponent<LaserBeam>(); // ดึงคอมโพเนนต์ LaserBeam
+            LaserBeamY laserBeam = laser.GetComponent<LaserBeamY>(); // ดึงคอมโพเนนต์ LaserBeam
 
             if (laserBeam != null)
             {
                 laserBeam.FireLaser(); // เรียกใช้เมธอดยิงเลเซอร์
+                Debug.Log("ยิงเลเซอร์ Y: " + laser.name); // ตรวจสอบเลเซอร์ที่ถูกยิง
+            }
+            else
+            {
+                Debug.LogError("ไม่พบ LaserBeam ใน: " + laser.name);
             }
 
             // รอให้ยิงเสร็จ
-            yield return new WaitForSeconds(1.3f); // รอระยะเวลาระหว่างการยิง
+            yield return new WaitForSeconds(2.7f); // รอระยะเวลาระหว่างการยิง
         }
     }
+
 
     private IEnumerator ShootAtPlayerContinuously()
     {
@@ -292,10 +357,24 @@ public class Boss_Dragon : MonoBehaviour
         }
 
         currentHealth -= damage;
-
+        StartCoroutine(FlashOnDamage());
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+    private IEnumerator FlashOnDamage()
+    {
+        Color originalColor = spriteRenderer.color; // บันทึกสีเดิม
+        Color flashColor = Color.red; // สีที่จะใช้เมื่อถูกโจมตี
+
+        // กระพิบ 2 ครั้ง
+        for (int i = 0; i < 2; i++)
+        {
+            spriteRenderer.color = flashColor; // เปลี่ยนเป็นสีแดง
+            yield return new WaitForSeconds(0.1f); // รอ 0.1 วินาที
+            spriteRenderer.color = originalColor; // เปลี่ยนกลับเป็นสีเดิม
+            yield return new WaitForSeconds(0.1f); // รอ 0.1 วินาที
         }
     }
 
