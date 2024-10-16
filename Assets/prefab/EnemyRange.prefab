@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4807395878972590825}
   - component: {fileID: 4085617219252496386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 1185963652053690395}
   - component: {fileID: -7539093770657637602}
   - component: {fileID: -3122422353693114198}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}

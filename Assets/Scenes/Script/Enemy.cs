@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
     public int Speed = 10;
     public GameObject player;
     protected Rigidbody2D rb; // Changed to protected so derived classes can access it
-    public int health = 100;
+    public float health = 100;
     public int damage = 5;
     protected bool CanAttack = false;
 
@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Handle taking damage
-    protected void TakeDamage(int dmg)
+    public void TakeDamage(float dmg)
     {
         health -= dmg;
         DamageColorChange damageColorChange = GetComponent<DamageColorChange>();

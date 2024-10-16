@@ -137,6 +137,13 @@ public class PlayerManager : MonoBehaviour
         {
             UseSkill(2);
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            IncreaseMaxHealth(90);
+            Heal(90);
+            damgeMulti += 5;
+        }
     }
 
     private void UpdateCooldowns()

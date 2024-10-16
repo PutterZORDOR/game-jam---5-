@@ -222,11 +222,11 @@ public class PlayerMovement : MonoBehaviour
                     {
                         finalDamage *= criticalDamageMultiplier; // ทำความเสียหายเพิ่มขึ้น
                     }
-                    //enemy.GetComponent<>().TakeDamage(finalDamage);
+                    enemy.GetComponent<BossController>().ApplyDamage(finalDamage);
                 }
                 else
                 {
-                    //enemy.GetComponent<>().TakeDamage(damage * PlayerManager.instance.damgeMulti);
+                    enemy.GetComponent<BossController>().ApplyDamage(damage * PlayerManager.instance.damgeMulti);
                 }
             }
             else if (enemy.gameObject.tag == "Boss 2")
@@ -252,11 +252,11 @@ public class PlayerMovement : MonoBehaviour
                     {
                         finalDamage *= criticalDamageMultiplier; // ทำความเสียหายเพิ่มขึ้น
                     }
-                    //enemy.GetComponent<>().TakeDamage(finalDamage);
+                    enemy.GetComponent<Enemy>().TakeDamage(finalDamage);
                 }
                 else
                 {
-                    //enemy.GetComponent<>().TakeDamage(damage * PlayerManager.instance.damgeMulti);
+                    enemy.GetComponent<Enemy>().TakeDamage(damage * PlayerManager.instance.damgeMulti);
                 }
             }
         }

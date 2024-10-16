@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9017201590876079074}
   - component: {fileID: 566592974430445516}
   - component: {fileID: 910554379934514311}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 7650014282291282675}
   - component: {fileID: 8186630288566933876}
   - component: {fileID: 5266363593220671106}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

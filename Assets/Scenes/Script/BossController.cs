@@ -15,8 +15,8 @@ public class BossController : MonoBehaviour
     public float attackPhaseDurationMin = 2f; // Minimum duration of attack phase
     public float attackPhaseDurationMax = 5f; // Maximum duration of attack phase
     public float cooldownDuration = 3f;  // Time during which the boss is vulnerable after an attack phase
-    public int maxHealth = 100;          // Boss's maximum health
-    public int currentHealth;            // Boss's current health
+    public float maxHealth = 100;          // Boss's maximum health
+    public float currentHealth;            // Boss's current health
 
     private Transform player;             // Reference to the player
     public bool isUsingSkill = false;    // A flag to check if a skill is in progress
@@ -53,7 +53,7 @@ public class BossController : MonoBehaviour
     }
 
     // Apply damage to the boss, but only if it's not in the attack phase or cooldown phase
-    public void ApplyDamage(int damage)
+    public void ApplyDamage(float damage)
     {
         if (!isInAttackPhase && !isInCooldown)
         {

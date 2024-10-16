@@ -42,6 +42,7 @@ public class Skill_Trader : MonoBehaviour
             CanBuy = false;
             CanBuy = true;
             anim.Play("Open_Chest");
+            ShowItem();
         }
         else
         {
