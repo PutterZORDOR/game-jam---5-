@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillname: Double Jump
   Description: "\u0E01\u0E23\u0E30\u0E42\u0E14\u0E14"
-  sprite: {fileID: -4880631200693110131, guid: 8b40bb4dafcc86947bb331b21e0535f3, type: 3}
+  sprite: {fileID: 9119744025594411223, guid: bbf3a6a4a6a9df7459ff9e83b95e00f8, type: 3}
   Type: 0
   Ability: 2
   cd: 0
+  duration_ability: 0

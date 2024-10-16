@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   skillname: Dash
-  Description: "\u0E1E\u0E38\u0E48\u0E07"
-  sprite: {fileID: -2096223910734102703, guid: 8b40bb4dafcc86947bb331b21e0535f3, type: 3}
+  Description: Dash only aviliable when player is in the air.
+  sprite: {fileID: 7110878671101974141, guid: 1474b316e45f14a4d82030dd17a56322, type: 3}
   Type: 1
   Ability: 1
   cd: 6
+  duration_ability: 0

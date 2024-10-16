@@ -4,7 +4,10 @@ public class Open_Skill_Pannel : MonoBehaviour
 {
     [Header("Random Pannel")]
     public GameObject Random_Pannel;
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.Tab))

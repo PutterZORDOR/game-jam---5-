@@ -49,7 +49,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] bool isAttacking = false;
     private bool Digging;
     [SerializeField] private int indexAttack;
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void Start()
     {
         anim = GetComponent<Animator>();

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillname: Increase Max HP
   Description: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E40\u0E25\u0E37\u0E2D\u0E14\u0E2A\u0E39\u0E07\u0E2A\u0E38\u0E14"
-  sprite: {fileID: 2537896052880557839, guid: 8b40bb4dafcc86947bb331b21e0535f3, type: 3}
+  sprite: {fileID: -8020145047929140699, guid: feb7cc1440695eb4d9c99f071dcaaffb, type: 3}
   Type: 0
   Ability: 3
   cd: 0
