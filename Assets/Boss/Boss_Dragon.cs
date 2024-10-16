@@ -72,8 +72,20 @@ public class Boss_Dragon : MonoBehaviour
         }
         else if (!isShootingLaser)
         {
-             ExecuteLaserAttackPattern();
+            StartCoroutine(StopMovementForDuration(3f));
+            StartCoroutine(UseMeteorAndShootProjectilesRoutine());
         }
+    }
+    private IEnumerator StopMovementForDuration(float duration)
+    {
+        isMoving = false;  // หยุดการเคลื่อนไหว
+        yield return new WaitForSeconds(duration); // รอเวลาที่กำหนด
+        isMoving = true;  // กลับมาเคลื่อนไหวอีกครั้ง
+    }
+    private IEnumerator UseMeteorAndShootProjectilesRoutine()
+    {
+        yield return StartCoroutine(UseSkillPattern());
+        ExecuteLaserAttackPattern();
     }
     private void ExecuteLaserAttackPattern()
     {
@@ -156,8 +168,6 @@ public class Boss_Dragon : MonoBehaviour
         // ยิงเลเซอร์ในแกน X
         yield return StartCoroutine(ShootLaserX()); // เพิ่มการรอการทำงานของ Coroutine
 
-        // หยุดอยู่กับที่
-        isMoving = false;
         isShootingLaser = false;
     }
 
