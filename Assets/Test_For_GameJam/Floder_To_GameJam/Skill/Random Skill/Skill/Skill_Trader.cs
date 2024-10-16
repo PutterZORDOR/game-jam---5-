@@ -41,8 +41,7 @@ public class Skill_Trader : MonoBehaviour
             CoinManager.instance.SpendCoins(Price);
             CanBuy = false;
             CanBuy = true;
-            //anim เปิดกล่อง เล่นฟังชั่น Showitem
-            ShowItem();
+            anim.Play("Open_Chest");
         }
         else
         {
