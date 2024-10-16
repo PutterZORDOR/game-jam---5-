@@ -70,6 +70,10 @@ public class PlayerMovement : MonoBehaviour
             {
               anim.SetBool("OnAir", IsWalled());
               return;
+            }else if (Digging)
+            {
+                rb.velocity = Vector2.zero;
+                return;
             }
 
             if (isDashing || PlayerManager.instance.IsDie || Digging)
@@ -139,13 +143,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isWallJumping && !isDashing)
         {
-            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+            if (!Digging)
+            {
+                rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+            }
         }
     }
+
     public void DigDown()
     {
         gameObject.tag = "Untagged";
         Digging = true;
+        rb.velocity = Vector2.zero;
         anim.Play("Cat_DigDown");
     }
     public void FinishedDigDown()
@@ -154,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator WaitForDigUp()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
         DigUp();
     }
     public void DigUp()

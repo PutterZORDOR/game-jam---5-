@@ -202,7 +202,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (!skillOnCooldown[slot])
             {
-                if (skills[slot].Ability == Skill_Ability.Dig)
+                if (skills[slot].Ability == Skill_Ability.Dig && movement.IsGrounded())
                 {
                     movement.DigDown();
                     Immune =true;
