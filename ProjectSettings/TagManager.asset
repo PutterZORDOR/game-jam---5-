@@ -58,5 +58,8 @@ TagManager:
   - name: 4 floor
     uniqueID: 1463160741
     locked: 0
+  - name: fureniture
+    uniqueID: 294461135
+    locked: 0
   m_RenderingLayers:
   - Default

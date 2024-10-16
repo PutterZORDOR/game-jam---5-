@@ -53591,7 +53591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c6f606da29aa342bcd95e7a38a36c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: map1enemy2toboss
+  sceneToLoad: boss map 1
 --- !u!212 &815995529
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -94715,7 +94715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 1862905418}
-  speed: 1.5
+  speed: 1
   player: {fileID: 1691330547}
 --- !u!1 &1503191212
 GameObject:
