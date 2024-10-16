@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 056e29ae265f52147b01d62a4d96c20c
+guid: 2d5e32f97776fe3489640641a21f89a1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7440981132975211316
-    second: wood_0
-  - first:
-      213: 702437253302840433
-    second: wood_1
-  - first:
-      213: 797441582534902653
-    second: wood_2
+      213: -8797279145867475607
+    second: blackroom_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wood_0
+      name: blackroom_0
       rect:
         serializedVersion: 2
-        x: 79
-        y: 173
-        width: 35
-        height: 36
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,52 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4330f5b9aeca34760800000000000000
-      internalID: 7440981132975211316
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wood_1
-      rect:
-        serializedVersion: 2
-        x: 127
-        y: 143
-        width: 66
-        height: 66
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 17ced10d5fe8fb900800000000000000
-      internalID: 702437253302840433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wood_2
-      rect:
-        serializedVersion: 2
-        x: 79
-        y: 110
-        width: 34
-        height: 51
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d734e10f4e4111b00800000000000000
-      internalID: 797441582534902653
+      spriteID: 9650e901a39c9e580800000000000000
+      internalID: -8797279145867475607
       vertices: []
       indices: 
       edges: []
@@ -196,9 +146,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      wood_0: 7440981132975211316
-      wood_1: 702437253302840433
-      wood_2: 797441582534902653
+      blackroom_0: -8797279145867475607
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
