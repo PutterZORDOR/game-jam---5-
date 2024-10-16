@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 3
-  beamSpeed: 10
   damage: 0
+  lineRenderer: {fileID: 0}
+  target: {fileID: 0}
 --- !u!50 &1734613724850462905
 Rigidbody2D:
   serializedVersion: 4

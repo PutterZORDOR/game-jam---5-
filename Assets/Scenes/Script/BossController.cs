@@ -5,24 +5,24 @@ public class BossController : MonoBehaviour
 {
     public GameObject rainPrefab;        // The prefab for the rain
     public GameObject beamPrefab;        // The prefab for the beam
-    public float minRainInterval = 3f;   // Minimum time for rain summon
-    public float maxRainInterval = 8f;   // Maximum time for rain summon
-    public float minRainSize = 0.5f;     // Minimum size for rain
-    public float maxRainSize = 2.5f;     // Maximum size for rain
-    public float rainRangeX = 5f;        // Range on the X-axis for rain to spawn
-    public float rainRangeY = 2f;        // Range on the Y-axis for rain to spawn
-    public float minRainSpeed = 2f;      // Minimum speed for rain fall
-    public float maxRainSpeed = 8f;      // Maximum speed for rain fall
+    public GameObject shieldPrefab;      // The shield prefab for immunity
+    public GameObject rainSpawnArea;     // The GameObject where rain should spawn
+
+    public float minRainInterval = 1f;   // Minimum time for rain summon
+    public float maxRainInterval = 3f;   // Maximum time for rain summon
+    public int rainSpawnFrequency = 3;   // Number of raindrops to spawn each time
     public float beamDelay = 1f;         // Delay before shooting beams
-    public float beamSpeed = 10f;        // Speed of the beams
     public float attackPhaseDurationMin = 2f; // Minimum duration of attack phase
     public float attackPhaseDurationMax = 5f; // Maximum duration of attack phase
-    public GameObject shieldPrefab;       // The shield prefab for immunity
+    public float cooldownDuration = 3f;  // Time during which the boss is vulnerable after an attack phase
+    public int maxHealth = 100;          // Boss's maximum health
+    public int currentHealth;            // Boss's current health
 
     private Transform player;             // Reference to the player
-    [SerializeField] private bool isUsingSkill = false;    // A flag to check if a skill is in progress
-    [SerializeField]private bool isInAttackPhase = false; // A flag to check if the boss is in the attack phase
-    private GameObject currentShield;     // Reference to the active shield
+    public bool isUsingSkill = false;    // A flag to check if a skill is in progress
+    public bool isInAttackPhase = false; // A flag to check if the boss is in the attack phase
+    public bool isInCooldown = false;    // A flag to check if the boss is in cooldown phase
+    private GameObject shieldInstance;    // Reference to the active shield
 
     private void Start()
     {
@@ -32,7 +32,54 @@ public class BossController : MonoBehaviour
             Debug.LogError("Player not found! Make sure the Player object has the 'Player' tag.");
         }
 
+        currentHealth = maxHealth; // Initialize health
+
+        // Instantiate the shield but deactivate it initially
+        shieldInstance = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
+        shieldInstance.transform.SetParent(transform);
+        shieldInstance.SetActive(false);  // Shield starts inactive
+
         StartCoroutine(UseSkillsSequentially()); // Start the skill usage sequence
+    }
+
+    private void Update()
+    {
+        // Debug system to apply damage to boss when 'P' is pressed
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("P key pressed: attempting to damage boss...");
+            ApplyDamage(10); // Apply 10 damage for testing
+        }
+    }
+
+    // Apply damage to the boss, but only if it's not in the attack phase or cooldown phase
+    public void ApplyDamage(int damage)
+    {
+        if (!isInAttackPhase && !isInCooldown)
+        {
+            currentHealth -= damage;
+            Debug.Log("Boss took damage! Current Health: " + currentHealth);
+
+            // Check if the boss is dead
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+        else if (isInAttackPhase)
+        {
+            Debug.Log("Boss is immune during the attack phase.");
+        }
+        else if (isInCooldown)
+        {
+            Debug.Log("Boss is in cooldown and vulnerable.");
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Boss has died!");
+        Destroy(gameObject); // Destroy the boss object
     }
 
     // Coroutine to use skills sequentially
@@ -44,25 +91,25 @@ public class BossController : MonoBehaviour
             {
                 isUsingSkill = true; // Mark that a skill is in progress
 
-                // Create a shield for 1 second
-                CreateShield();
+                // Activate shield for the attack phase
+                ActivateShield();
 
-                // Wait for the shield phase to finish
+                // Wait for shield activation time
                 yield return new WaitForSeconds(1f);
 
                 // Enter the attack phase
                 isInAttackPhase = true;
+                isInCooldown = false;
+                Debug.Log("Entering attack phase. Shield activated.");
 
                 // Randomly choose between shooting beams or summoning rain
                 int skillChoice = Random.Range(0, 2);
                 if (skillChoice == 0)
                 {
-                    // Summon rain
                     yield return StartCoroutine(SummonRain());
                 }
                 else
                 {
-                    // Shoot beams
                     yield return StartCoroutine(ShootBeams());
                 }
 
@@ -72,76 +119,100 @@ public class BossController : MonoBehaviour
 
                 // End attack phase
                 isInAttackPhase = false;
-                Destroy(currentShield); // Destroy the shield after the attack phase
-                currentShield = null;    // Clear the shield reference
+                DeactivateShield(); // Deactivate the shield after the attack phase
+                Debug.Log("Exiting attack phase. Shield deactivated.");
+
+                // Enter cooldown phase
+                isInCooldown = true;
+                Debug.Log("Boss is in cooldown phase and vulnerable.");
+
+                // Wait for cooldown duration where boss is vulnerable
+                yield return new WaitForSeconds(cooldownDuration);
+
+                // Exit cooldown phase
+                isInCooldown = false;
+                Debug.Log("Boss cooldown phase ended.");
 
                 isUsingSkill = false; // Mark that the skill has finished
             }
 
-            yield return null; // Wait until the next frame
+            yield return null;
         }
     }
 
-    private void CreateShield()
+    // Activate the shield at the start of the attack phase
+    private void ActivateShield()
     {
-        // Instantiate the shield prefab at the boss's position
-        currentShield = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
-        // Set the shield's parent to the boss to keep it in the right position
-        currentShield.transform.SetParent(transform);
+        if (shieldInstance != null && !shieldInstance.activeSelf)
+        {
+            shieldInstance.SetActive(true);
+            Debug.Log("Shield activated.");
+        }
     }
 
-    // Summon rain at random intervals, size, and speed
+    // Deactivate the shield at the end of the attack phase
+    private void DeactivateShield()
+    {
+        if (shieldInstance != null && shieldInstance.activeSelf)
+        {
+            shieldInstance.SetActive(false);
+            Debug.Log("Shield deactivated.");
+        }
+    }
+
+    // Summon rain randomly within the defined spawn area
     IEnumerator SummonRain()
     {
-        // Choose a random interval for the next rain summon
-        float randomInterval = Random.Range(minRainInterval, maxRainInterval);
-        yield return new WaitForSeconds(randomInterval);
+        while (isInAttackPhase) // Continue spawning while in attack phase
+        {
+            // Choose a random interval for the next rain summon
+            float randomInterval = Random.Range(minRainInterval, maxRainInterval);
+            yield return new WaitForSeconds(randomInterval);
 
-        // Choose a random position within the defined range for rain to spawn
-        Vector3 rainPosition = new Vector3(
-            transform.position.x + Random.Range(-rainRangeX, rainRangeX),
-            transform.position.y + Random.Range(-rainRangeY, rainRangeY),
-            transform.position.z
-        );
+            // Get the bounds of the rain spawn area
+            BoxCollider2D spawnArea = rainSpawnArea.GetComponent<BoxCollider2D>();
+            Vector2 spawnSize = spawnArea.size;
+            Vector2 spawnCenter = spawnArea.offset;
 
-        // Instantiate the rain prefab at the random position
-        GameObject rain = Instantiate(rainPrefab, rainPosition, Quaternion.identity);
+            // Generate a random position within the bounds of the spawn area
+            for (int i = 0; i < rainSpawnFrequency; i++)
+            {
+                // Get random position within the spawn area
+                Vector3 randomPosition = new Vector3(
+                    rainSpawnArea.transform.position.x + Random.Range(-spawnSize.x / 2 + spawnCenter.x, spawnSize.x / 2 + spawnCenter.x),
+                    rainSpawnArea.transform.position.y + Random.Range(-spawnSize.y / 2 + spawnCenter.y, spawnSize.y / 2 + spawnCenter.y) + 2f, // Adjust to ensure it spawns above the area
+                    rainSpawnArea.transform.position.z
+                );
 
-        // Set random size for the rain
-        float randomSize = Random.Range(minRainSize, maxRainSize);
-        rain.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+                GameObject rain = Instantiate(rainPrefab, randomPosition, Quaternion.identity);
 
-        // Set random fall speed for the rain
-        float randomRainSpeed = Random.Range(minRainSpeed, maxRainSpeed);
-        rain.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -randomRainSpeed);
+                // Rain falls downwards
+                rain.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -5f);
 
-        // Wait for the rain to complete its action (e.g., fall for 2 seconds before the next skill)
-        yield return new WaitForSeconds(2f);
+                // Delay before spawning the next raindrop
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
     }
 
-    // Shoot two beams: one at player and one in a random direction
+    // Shoot beams at the player and randomly
     IEnumerator ShootBeams()
     {
-        // Delay before shooting the first beam
         yield return new WaitForSeconds(beamDelay);
 
         if (player != null)
         {
-            // Shoot first beam towards the player
+            // First beam toward the player
             GameObject beamToPlayer = Instantiate(beamPrefab, transform.position, Quaternion.identity);
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            beamToPlayer.GetComponent<Rigidbody2D>().velocity = directionToPlayer * beamSpeed;
+            beamToPlayer.GetComponent<Beam>().SetBeamDirection(directionToPlayer);
         }
 
-        // Wait for 1 second before shooting the second beam
         yield return new WaitForSeconds(1f);
 
-        // Shoot second beam in a random direction
+        // Randomly shoot another beam in any direction
         GameObject randomBeam = Instantiate(beamPrefab, transform.position, Quaternion.identity);
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
-        randomBeam.GetComponent<Rigidbody2D>().velocity = randomDirection * beamSpeed;
-
-        // Wait for the beam action to complete (e.g., 1 second before the next skill)
-        yield return new WaitForSeconds(1f);
+        randomBeam.GetComponent<Beam>().SetBeamDirection(randomDirection);
     }
 }
