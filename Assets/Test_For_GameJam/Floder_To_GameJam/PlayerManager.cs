@@ -295,6 +295,7 @@ public class PlayerManager : MonoBehaviour
     public void Die()
     {
         Time.timeScale = 0f;
+        spriteRenderer.color = Color.white;
         UI_GameOver.SetActive(true);
     }
 

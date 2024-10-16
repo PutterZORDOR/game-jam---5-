@@ -284,42 +284,38 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
     }
 
-    private void WallSlide()
-    {
-        if (IsWalled() && !IsGrounded() && horizontal != 0f)
-        {
+    private void WallSlide() {
+        // ตรวจสอบว่าตัวละครกำลังอยู่บนกำแพงหรือไม่
+        if (IsWalled() && !IsGrounded() && horizontal != 0f) {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
-        }
-        else
-        {
+        } else {
+            // ถ้าไม่เจอ wall ให้รีเซ็ตสถานะ wall sliding
             isWallSliding = false;
         }
     }
 
-    private void WallJump()
-    {
-        if (isWallSliding)
-        {
+    private void WallJump() {
+        // ถ้ากำลังอยู่ในสถานะ wall sliding
+        if (isWallSliding) {
             isWallJumping = false;
-            wallJumpingDirection = -transform.localScale.x;
+            wallJumpingDirection = -transform.localScale.x; // เปลี่ยนทิศทางกระโดด
             wallJumpingCounter = wallJumpingTime;
 
+            // ยกเลิกการเรียกฟังก์ชันหยุดการ Wall Jump
             CancelInvoke(nameof(StopWallJumping));
-        }
-        else
-        {
+        } else {
             wallJumpingCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f)
-        {
+        // ตรวจสอบว่าผู้เล่นกดปุ่มกระโดดและยังอยู่ในระยะเวลา wall jumping หรือไม่
+        if (Input.GetButtonDown("Jump") && wallJumpingCounter > 0f) {
             isWallJumping = true;
             rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
             wallJumpingCounter = 0f;
 
-            if (transform.localScale.x != wallJumpingDirection)
-            {
+            // ถ้าเจอกำแพงแล้วทิศทางไม่ตรงกัน ให้หมุนตัวละคร
+            if (transform.localScale.x != wallJumpingDirection) {
                 isFacingRight = !isFacingRight;
                 Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
@@ -330,8 +326,14 @@ public class PlayerMovement : MonoBehaviour
 
             Invoke(nameof(StopWallJumping), wallJumpingDuration);
         }
-    }
 
+        // ตรวจสอบว่าหากตัวละครไม่อยู่บนกำแพง (IsWalled()) และเจอ layer อื่น เช่น พื้น (ground)
+        if (!IsWalled() && IsGrounded()) {
+            // รีเซ็ตสถานะ Wall Jumping หากไม่เจอกำแพงแล้ว
+            isWallJumping = false;
+            isWallSliding = false;
+        }
+    }
     private void StopWallJumping()
     {
         isWallJumping = false;

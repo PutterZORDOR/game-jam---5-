@@ -10265,10 +10265,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 356471241}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c6f606da29aa342bcd95e7a38a36c5, type: 3}
+  m_Script: {fileID: 11500000, guid: fc1db48bc88efeb4da8bc983a5876c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: waterup
 --- !u!1 &357447038
 GameObject:
   m_ObjectHideFlags: 0
@@ -12233,8 +12232,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1658780433
-  m_SortingLayer: 0
+  m_SortingLayerID: -861342879
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 246254790372181197, guid: a361bbef917403b46a4c11ea79bd2420, type: 3}
   m_Color: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
@@ -19034,7 +19033,6 @@ GameObject:
   - component: {fileID: 594632545}
   - component: {fileID: 594632547}
   - component: {fileID: 594632550}
-  - component: {fileID: 594632549}
   - component: {fileID: 594632548}
   m_Layer: 0
   m_Name: smoke_2 (1)
@@ -19219,19 +19217,6 @@ PolygonCollider2D:
       - {x: -0.48, y: 0.375}
       - {x: -0.48, y: 0.385}
   m_UseDelaunayMesh: 0
---- !u!114 &594632549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594632544}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c6f606da29aa342bcd95e7a38a36c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: waterup
 --- !u!114 &594632550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43309,8 +43294,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1658780433
-  m_SortingLayer: 0
+  m_SortingLayerID: -861342879
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 246254790372181197, guid: a361bbef917403b46a4c11ea79bd2420, type: 3}
   m_Color: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
@@ -68338,12 +68323,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055744612}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c6f606da29aa342bcd95e7a38a36c5, type: 3}
+  m_Script: {fileID: 11500000, guid: fc1db48bc88efeb4da8bc983a5876c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: waterup
 --- !u!1 &2057623262
 GameObject:
   m_ObjectHideFlags: 0

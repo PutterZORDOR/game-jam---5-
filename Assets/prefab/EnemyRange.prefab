@@ -87,6 +87,51 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2726296447894200834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 602283554936985250}
+  - component: {fileID: 5281449595209774581}
+  m_Layer: 0
+  m_Name: po
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &602283554936985250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2726296447894200834}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.8012299, y: 1.4574671, z: -16.318237}
+  m_LocalScale: {x: 1.5815277, y: 1.5815277, z: 1.5815277}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1260505926701117067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5281449595209774581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2726296447894200834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5386b1b584fbf4292d1c3f9dd1692e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletPre: {fileID: 5930326179270701548, guid: 169fbca6f6a7fe348a6fa61f50d073d1, type: 3}
 --- !u!1 &7641409237226827671
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,10 +162,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.35, y: -2.87, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6323, y: 0.6323, z: 0.6323}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4807395878972590825}
+  - {fileID: 602283554936985250}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &693148006241808195
@@ -164,8 +210,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -501502051
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 35e466d160d7ebd42b4330fa9834da8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -190,11 +236,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8c0a68584f0d844a7980814b237f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 10
+  player: {fileID: 0}
+  health: 100
+  damage: 5
+  detectionRange: 5
+  patrolSpeed: 2
+  patrolRange: 3
   Bullet: {fileID: 5930326179270701548, guid: 169fbca6f6a7fe348a6fa61f50d073d1, type: 3}
   BulletPos: {fileID: 4807395878972590825}
   player: {fileID: 0}
   ShootingTime: 5
-  _op: {fileID: 0}
+  _op: {fileID: 5281449595209774581}
 --- !u!50 &-7539093770657637602
 Rigidbody2D:
   serializedVersion: 4
