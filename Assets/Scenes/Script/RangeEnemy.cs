@@ -8,7 +8,7 @@ public class RangeEnemy : MonoBehaviour
     [SerializeField] private GameObject player;
     private float Timer;
     [SerializeField] private float ShootingTime;
-    [SerializeField] private ObjectPool _op;
+    [SerializeField] private ObjectPools _op;
     private int health = 10;
 
     void Start()
