@@ -19,14 +19,6 @@ MonoBehaviour:
     rid: 7700001200196026389
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/map1enemy1towaterup.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/waterup.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/boss map 1.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/meteor.unity
-  - m_enabled: 1
     m_path: Assets/Scenes/map2enemy1toboss.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
