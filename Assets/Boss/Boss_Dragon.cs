@@ -44,10 +44,13 @@ public class Boss_Dragon : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private bool isShootingLaser = false; // ตัวแปรเช็คสถานะการยิงเลเซอร์
+    private bool can_change;
+    private Animator anim;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        anim = GetComponent<Animator>();
         currentHealth = maxHealth;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -155,6 +158,7 @@ public class Boss_Dragon : MonoBehaviour
 
     public void ChangeState()
     {
+        anim.Play("Idel_V_2");
         moveSpeed = moveSpeed * 2.3f;
         changeState = true;
 
@@ -367,6 +371,11 @@ public class Boss_Dragon : MonoBehaviour
         }
 
         currentHealth -= damage;
+        if (currentHealth <= maxHealth * 0.5f && !can_change)
+        {
+            anim.Play("Change Form");
+            can_change = true;
+        }
         StartCoroutine(FlashOnDamage());
         if (currentHealth <= 0)
         {

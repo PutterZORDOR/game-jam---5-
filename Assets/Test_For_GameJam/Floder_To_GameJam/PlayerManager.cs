@@ -259,6 +259,7 @@ public class PlayerManager : MonoBehaviour
         {
             IsDie = true;
             player.tag = "Untagged";
+            spriteRenderer.color = Color.white;
             anim.Play("Cat_Die");
         }
     }
