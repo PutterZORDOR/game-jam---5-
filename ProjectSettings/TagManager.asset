@@ -45,5 +45,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: background
+    uniqueID: 2157203845
+    locked: 0
+  - name: cloud
+    uniqueID: 1498285773
+    locked: 0
+  - name: mountain
+    uniqueID: 3433624417
+    locked: 0
+  - name: player
+    uniqueID: 1497640411
+    locked: 0
+  - name: floor
+    uniqueID: 2866405899
+    locked: 0
+  - name: fureniture
+    uniqueID: 3793465245
+    locked: 0
   m_RenderingLayers:
   - Default
