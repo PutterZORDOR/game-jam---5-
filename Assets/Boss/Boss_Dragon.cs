@@ -52,11 +52,17 @@ public class Boss_Dragon : MonoBehaviour
                 StartCoroutine(ShootAtPlayerContinuously());
             }
         }
-
-        // เริ่มใช้สกิลเมื่อถึงจุดที่กำหนด
-        if (!isUsingSkill && !isMoving)
+        
+        if(currentHealth > maxHealth * 0.5)
         {
-            StartCoroutine(UseSkillPattern());
+            if (!isUsingSkill && !isMoving)
+            {
+                StartCoroutine(UseSkillPattern());
+            }
+        }
+        else
+        {
+            //สเตท
         }
     }
     private IEnumerator ShootAtPlayerContinuously()
