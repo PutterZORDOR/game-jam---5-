@@ -8,6 +8,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/main menu system.unity
+    guid: dfad5e43883df764fa000ce5edca53bb
+  - enabled: 1
+    path: Assets/Scenes/cutscene.unity
+    guid: cce5794b06af3294dbb903298361ca97
+  - enabled: 1
+    path: Assets/Scenes/map1enemy1towaterup.unity
+    guid: f34ad429d104be34fb333fbd2ae18800
+  - enabled: 1
+    path: Assets/Scenes/waterup.unity
+    guid: eba0ee22a08617242a3f0826318261ec
+  - enabled: 1
+    path: Assets/Scenes/boss map 1.unity
+    guid: d3ce1936131fd6849989ace919155a5b
+  - enabled: 1
+    path: Assets/Scenes/meteor.unity
+    guid: f6f2946ebb6e93c48bef04f5b585d136
+  - enabled: 1
+    path: Assets/Scenes/map2enemy1toboss.unity
+    guid: 2438e34b6fb8d6544aca8c99bc2ecd0f
+  - enabled: 1
+    path: Assets/Scenes/boss map 2.unity
+    guid: a37fc79ab63d2b74c9126095803fc751
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
