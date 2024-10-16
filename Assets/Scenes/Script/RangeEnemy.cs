@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangeEnemy : MonoBehaviour
@@ -8,6 +9,7 @@ public class RangeEnemy : MonoBehaviour
     private float Timer;
     [SerializeField] private float ShootingTime;
     [SerializeField] private ObjectPool _op;
+    private int health = 10;
 
     void Start()
     {
@@ -51,5 +53,19 @@ public class RangeEnemy : MonoBehaviour
             bullet.transform.position = BulletPos.position;
             bullet.SetActive(true);
         }
+    }
+
+    private void hurt()
+    {
+        DamageColorChange damageColorChange = GetComponent<DamageColorChange>();
+        if (damageColorChange != null)
+        {
+            damageColorChange.TakeDamage();
+        }
+        if(health<=0)
+        {
+            GameObject.Destroy(gameObject);
+        }
+
     }
 }

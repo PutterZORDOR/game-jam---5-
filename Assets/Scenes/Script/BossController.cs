@@ -60,6 +60,13 @@ public class BossController : MonoBehaviour
             currentHealth -= damage;
             Debug.Log("Boss took damage! Current Health: " + currentHealth);
 
+
+            DamageColorChange damageColorChange = GetComponent<DamageColorChange>();
+            if (damageColorChange != null)
+            {
+                damageColorChange.TakeDamage();
+            }
+
             // Check if the boss is dead
             if (currentHealth <= 0)
             {
@@ -193,7 +200,7 @@ public class BossController : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
             }
         }
-    }
+    }  
 
     // Shoot beams at the player and randomly
     IEnumerator ShootBeams()

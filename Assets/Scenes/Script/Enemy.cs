@@ -82,5 +82,15 @@ public class Enemy : MonoBehaviour
     protected void TakeDamage(int dmg)
     {
         health -= dmg;
+        DamageColorChange damageColorChange = GetComponent<DamageColorChange>();
+        if (damageColorChange != null)
+        {
+            damageColorChange.TakeDamage();
+        }
+        
+        if(health<=0)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 }
