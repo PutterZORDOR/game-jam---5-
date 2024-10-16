@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private float attackCooldownTimer = 0f;
 
     [Header("Dash")]
-    public float dashingPower =24f;
+    public float dashingPower = 24f;
     public float dashingTime = 0.2f;
     public float dashCooldown;
     private bool canDash = true;
@@ -66,24 +66,31 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!MenuManager.instance.isPaused)
         {
-            if(isDashing || PlayerManager.instance.IsDie || Digging)
+            if (isDashing)
+            {
+              anim.SetBool("OnAir", IsWalled());
+              return;
+            }
+
+            if (isDashing || PlayerManager.instance.IsDie || Digging)
             {
                 return;
             }
+
             horizontal = Input.GetAxisRaw("Horizontal");
 
             if (attackCooldownTimer > 0)
             {
                 attackCooldownTimer -= Time.deltaTime;
             }
+
             if (Input.GetMouseButtonDown(0) && !isAttacking && attackCooldownTimer <= 0f)
             {
                 isAttacking = true;
-                anim.Play($"Attack {Random.Range(1,4)}");
+                anim.Play($"Attack {Random.Range(1, 4)}");
                 Invoke(nameof(ResetAttackState), 0.3f);
                 attackCooldownTimer = attackCooldown;
             }
-
 
             if (Input.GetButtonDown("Jump"))
             {
@@ -127,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
     private void FixedUpdate()
     {
         if (!isWallJumping && !isDashing)
@@ -180,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-    } 
+    }
     private void Attack()
     {
         Debug.Log("Attack");
