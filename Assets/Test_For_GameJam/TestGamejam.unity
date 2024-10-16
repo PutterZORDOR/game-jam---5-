@@ -3048,6 +3048,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5800085326263534991, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800085326263534991, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -236
+      objectReference: {fileID: 0}
     - target: {fileID: 6060956896433444817, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
       propertyPath: m_SizeDelta.x
       value: 251.526
@@ -3116,6 +3124,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.009433985
       objectReference: {fileID: 0}
+    - target: {fileID: 8730032680471307374, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6966820583463082576, guid: aad2be93ab7ce9e43b06aa357441d247, type: 3}
     - target: {fileID: 8772652525120249821, guid: 84129e87c2634d948b224b4f99bc42dd, type: 3}
       propertyPath: m_Pivot.x
       value: 0
