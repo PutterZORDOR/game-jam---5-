@@ -25,7 +25,7 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/boss map 1.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/map2enemy1toboss.unity
+    m_path: Assets/Scenes/meteor.unity
   - m_enabled: 1
     m_path: Assets/Scenes/boss map 2.unity
   m_ScriptingDefines: []
