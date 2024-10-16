@@ -12,14 +12,36 @@ public class LaserBeam : MonoBehaviour
 
     private Vector3 initialScale; // ขนาดเริ่มต้นของเลเซอร์
     private Vector3 initialPosition; // ตำแหน่งเริ่มต้นของเลเซอร์
-    private bool laserActive = true; // สถานะของเลเซอร์ว่าเปิดอยู่หรือไม่
+    private bool laserActive = false; // สถานะของเลเซอร์ว่าเปิดอยู่หรือไม่
     private bool shrinking = false; // สถานะของการย่อเลเซอร์
 
-    void Start()
+    public GameObject pre_laser; // เลเซอร์ที่จะโชว์ก่อน
+    public GameObject actualLaser; // เลเซอร์จริงที่ยิง
+
+    public void FireLaser()
     {
-        initialScale = transform.localScale; // เก็บขนาดเริ่มต้นของเลเซอร์
-        initialPosition = transform.position; // เก็บตำแหน่งเริ่มต้นของเลเซอร์
-        StartCoroutine(HandleLaserDuration()); // เริ่มนับเวลาของเลเซอร์
+        // แสดง pre_laser
+        pre_laser.SetActive(true);
+        actualLaser.SetActive(false); // ซ่อนเลเซอร์จริงก่อน
+
+        StartCoroutine(HandleLaserPreparation());
+    }
+
+    private IEnumerator HandleLaserPreparation()
+    {
+        // รอ 1.2 วินาที
+        yield return new WaitForSeconds(1.2f);
+
+        // ซ่อน pre_laser และแสดงเลเซอร์จริง
+        pre_laser.SetActive(false);
+        actualLaser.SetActive(true);
+
+        laserActive = true;
+        shrinking = false;
+        transform.localScale = initialScale;
+        transform.position = initialPosition;
+
+        StartCoroutine(HandleLaserDuration());
     }
 
     void Update()
@@ -90,11 +112,12 @@ public class LaserBeam : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             PlayerManager.instance.TakeDamgeAll(1);
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

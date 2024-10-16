@@ -12,14 +12,18 @@ public class LaserBeamY : MonoBehaviour
 
     private Vector3 initialScale; // ขนาดเริ่มต้นของเลเซอร์
     private Vector3 initialPosition; // ตำแหน่งเริ่มต้นของเลเซอร์
-    private bool laserActive = true; // สถานะของเลเซอร์ว่าเปิดอยู่หรือไม่
+    private bool laserActive = false; // สถานะของเลเซอร์ว่าเปิดอยู่หรือไม่
     private bool shrinking = false; // สถานะของการย่อเลเซอร์
 
-    void Start()
+    public GameObject pre_laser;
+
+    public void FireLaser()
     {
-        initialScale = transform.localScale; // เก็บขนาดเริ่มต้นของเลเซอร์
-        initialPosition = transform.position; // เก็บตำแหน่งเริ่มต้นของเลเซอร์
-        StartCoroutine(HandleLaserDuration()); // เริ่มนับเวลาของเลเซอร์
+        laserActive = true;
+        shrinking = false;
+        transform.localScale = initialScale;
+        transform.position = initialPosition;
+        StartCoroutine(HandleLaserDuration());
     }
 
     void Update()

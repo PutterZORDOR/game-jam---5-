@@ -14,8 +14,8 @@ public class Boss_Dragon : MonoBehaviour
     public int meteorCount = 3; // จำนวนอุกกาบาตที่ยิง
 
     [Header("Health Settings")]
-    public int maxHealth = 100; // ค่าพลังชีวิตสูงสุด
-    private int currentHealth; // ค่าพลังชีวิตปัจจุบัน
+    public float maxHealth = 100; // ค่าพลังชีวิตสูงสุด
+    [SerializeField]private float currentHealth; // ค่าพลังชีวิตปัจจุบัน
 
     [Header("Immortality Settings")]
     public bool isImmortal = false; // ตัวแปรระบุว่าอยู่ในสถานะอมตะหรือไม่
@@ -31,10 +31,17 @@ public class Boss_Dragon : MonoBehaviour
     [Header("Shooting Settings")]
     public Transform[] bulletSpawnPoints;
 
+    [Header("Lazer")]
+    public GameObject[] lazerX;
+    public GameObject[] lazerY;
+
     private int currentWaypointIndex = 0; // ตัวแปรเก็บตำแหน่งจุดทางเดินปัจจุบัน
     private bool isMoving = false; // ตัวแปรเช็คสถานะการเคลื่อนที่
     private bool isUsingSkill = false; // ตัวแปรเช็คสถานะการใช้สกิล
     private bool isShooting = false; // ตัวแปรเช็คสถานะการยิง
+
+    private bool changeState;
+    private bool isChangingAttackPattern = false;
 
     private void Start()
     {
@@ -53,7 +60,7 @@ public class Boss_Dragon : MonoBehaviour
             }
         }
         
-        if(currentHealth > maxHealth * 0.5)
+        if(currentHealth > maxHealth * 0.5 && !changeState)
         {
             if (!isUsingSkill && !isMoving)
             {
@@ -62,9 +69,82 @@ public class Boss_Dragon : MonoBehaviour
         }
         else
         {
-            //สเตท
+            //เล่น animation
         }
     }
+    public void ChangeState()
+    {
+        moveSpeed = moveSpeed * 2.3f;
+        changeState = true;
+
+        if (!isChangingAttackPattern)
+        {
+            StartCoroutine(NewAttackPattern());
+        }
+    }
+    private IEnumerator NewAttackPattern()
+    {
+        isChangingAttackPattern = true; // ตั้งค่าสถานะการเปลี่ยนแพทเทิร์นการโจมตีให้เป็นจริง
+
+        // ยิงเลเซอร์ในแกน Y
+        yield return ShootLaserY();
+
+        // ยิงเลเซอร์ในแกน X
+        yield return ShootLaserX();
+
+        // หยุดอยู่กับที่
+        isMoving = false;
+
+        // เล่นฟังก์ชัน spawn meteor
+        while (currentHealth > 0) // เมื่อบอสยังมีชีวิตอยู่
+        {
+            for (int j = 0; j < meteorCount; j++)
+            {
+                SpawnMeteor();
+                yield return new WaitForSeconds(attackCooldown); // รอคูลดาวน์ระหว่างการ spawn
+            }
+
+            yield return new WaitForSeconds(2f); // รอระยะเวลาระหว่างการยิงอุกกาบาตครั้งต่อไป
+        }
+
+        isChangingAttackPattern = false; // เปลี่ยนสถานะการเปลี่ยนแพทเทิร์นการโจมตีกลับ
+    }
+
+    private IEnumerator ShootLaserX()
+    {
+        // ค้นหาจุดยิงเลเซอร์จาก lazerX
+        foreach (GameObject laser in lazerX)
+        {
+            laser.SetActive(true); // เปิดใช้งานเลเซอร์
+            LaserBeam laserBeam = laser.GetComponent<LaserBeam>(); // ดึงคอมโพเนนต์ LaserBeam
+
+            if (laserBeam != null)
+            {
+                laserBeam.FireLaser(); // เรียกใช้เมธอดยิงเลเซอร์
+            }
+
+            // รอให้ยิงเสร็จ
+            yield return new WaitForSeconds(1.3f); // รอระยะเวลาระหว่างการยิง
+        }
+    }
+    private IEnumerator ShootLaserY()
+    {
+        // ค้นหาจุดยิงเลเซอร์จาก lazerY
+        foreach (GameObject laser in lazerY)
+        {
+            laser.SetActive(true); // เปิดใช้งานเลเซอร์
+            LaserBeam laserBeam = laser.GetComponent<LaserBeam>(); // ดึงคอมโพเนนต์ LaserBeam
+
+            if (laserBeam != null)
+            {
+                laserBeam.FireLaser(); // เรียกใช้เมธอดยิงเลเซอร์
+            }
+
+            // รอให้ยิงเสร็จ
+            yield return new WaitForSeconds(1.3f); // รอระยะเวลาระหว่างการยิง
+        }
+    }
+
     private IEnumerator ShootAtPlayerContinuously()
     {
         isShooting = true; // ตั้งค่าสถานะการยิงให้เป็นจริง
@@ -204,16 +284,14 @@ public class Boss_Dragon : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (isImmortal)
         {
-            Debug.Log("Boss is immortal and takes no damage!");
             return;
         }
 
         currentHealth -= damage;
-        Debug.Log($"Boss takes {damage} damage! Current Health: {currentHealth}");
 
         if (currentHealth <= 0)
         {

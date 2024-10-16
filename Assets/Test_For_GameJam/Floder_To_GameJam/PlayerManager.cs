@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour
     public bool decreaseBleeding;
 
     [Header("Boost Damge")]
-    public int damgeMulti;
+    public float damgeMulti;
 
     [Header("List My Skill")]
     public All_Skill[] skills = new All_Skill[3];

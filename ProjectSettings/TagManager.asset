@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Dialogue
+  - Mana Pool
+  - Boss 2
   layers:
   - Default
   - TransparentFX

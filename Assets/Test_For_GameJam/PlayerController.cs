@@ -26,6 +26,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] Animator anim;
 
+    [Header("Player Damage")]
+    public float damage;
+    public float criticalHitChance = 0.25f; // โอกาสในการทำ Critical Hit (25%)
+    public float criticalDamageMultiplier = 3f; // ตัวคูณความเสียหายเมื่อทำ Critical Hit
+
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Vector2 attackBoxSize = new Vector2(1f, 0.5f);
     [SerializeField] private LayerMask enemyLayers;
@@ -43,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     [SerializeField] bool isAttacking = false;
     private bool Digging;
+    [SerializeField] private int indexAttack;
 
     private void Start()
     {
@@ -91,7 +97,8 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !isAttacking && attackCooldownTimer <= 0f)
             {
                 isAttacking = true;
-                anim.Play($"Attack {Random.Range(1, 4)}");
+                indexAttack = Random.Range(1, 4);
+                anim.Play($"Attack {indexAttack}");
                 Invoke(nameof(ResetAttackState), 0.3f);
                 attackCooldownTimer = attackCooldown;
             }
@@ -200,12 +207,55 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Attack()
     {
-        Debug.Log("Attack");
+        float finalDamage = damage * PlayerManager.instance.damgeMulti;
         Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(attackPoint.position, attackBoxSize, 0f, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
-            Debug.Log("Hit " + enemy.name);
-            //enemy.GetComponent<Enemy>().TakeDamage(10);
+            if(enemy.gameObject.tag == "Boss 1")
+            {
+                if (indexAttack < 3)
+                {
+                    if (Random.value < criticalHitChance)
+                    {
+                        finalDamage *= criticalDamageMultiplier; // ทำความเสียหายเพิ่มขึ้น
+                    }
+                    //enemy.GetComponent<>().TakeDamage(finalDamage);
+                }
+                else
+                {
+                    //enemy.GetComponent<>().TakeDamage(damage * PlayerManager.instance.damgeMulti);
+                }
+            }
+            else if (enemy.gameObject.tag == "Boss 2")
+            {
+                if (indexAttack < 3)
+                {
+                    if (Random.value < criticalHitChance)
+                    {
+                        finalDamage *= criticalDamageMultiplier; // ทำความเสียหายเพิ่มขึ้น
+                    }
+                    enemy.GetComponent<Boss_Dragon>().TakeDamage(finalDamage);
+                }
+                else
+                {
+                    enemy.GetComponent<Boss_Dragon>().TakeDamage(finalDamage);
+                }
+            }
+            else
+            {
+                if (indexAttack < 3)
+                {
+                    if (Random.value < criticalHitChance)
+                    {
+                        finalDamage *= criticalDamageMultiplier; // ทำความเสียหายเพิ่มขึ้น
+                    }
+                    //enemy.GetComponent<>().TakeDamage(finalDamage);
+                }
+                else
+                {
+                    //enemy.GetComponent<>().TakeDamage(damage * PlayerManager.instance.damgeMulti);
+                }
+            }
         }
     }
     private void OnDrawGizmosSelected()
