@@ -23,9 +23,6 @@ public class AudioManager : MonoBehaviour
     }
     private void Start() {
         PlayMusic("Start_Game");
-
-        // ย้ายการเรียก PlaySFX เข้ามาในฟังก์ชัน
-        instance.PlaySFX("bite1");
     }
 
     public void PlayMusic(string name)
@@ -71,5 +68,13 @@ public class AudioManager : MonoBehaviour
     {
         sfxSource.volume = volume;
     }
-    
+    public class PlayerAttack : MonoBehaviour
+    {
+        public void Attack() {
+            // โค้ดการโจมตี เช่น สร้างแอนิเมชันหรือคำนวณความเสียหาย
+
+            // เล่นเสียงโจมตี
+            AudioManager.instance.PlaySFX("Attack_Sound");
+        }
+    }
 }

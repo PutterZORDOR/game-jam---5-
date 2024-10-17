@@ -1087,7 +1087,7 @@ MonoBehaviour:
   - {fileID: 32900000, guid: 2532b3b78ff01824eb8cdbbc29cdc29d, type: 3}
   sceneNames:
   - map1enemy1towaterup
-  - meteor
+  - 
 --- !u!1 &2084015478
 GameObject:
   m_ObjectHideFlags: 0
