@@ -83,8 +83,8 @@ public class BossController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Boss has died!");
         animator.SetBool("Die", true);
+        this.enabled = false;
     }
 
     // Coroutine to use skills sequentially
