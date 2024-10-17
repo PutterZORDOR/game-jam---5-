@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
     private Animator anim;
     public bool IsDie;
 
+    public int scene_count;
+
     [Header("Start Stat")]
     public int MaxHealth;
 
