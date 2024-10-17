@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
 
+
     private void Awake()
     {
         if (instance == null)
@@ -20,10 +21,10 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
-    {
+    private void Start() {
         PlayMusic("Start_Game");
     }
+
     public void PlayMusic(string name)
     {
         Sound sound = Array.Find(musicSounds, x => x.name == name);
@@ -35,7 +36,9 @@ public class AudioManager : MonoBehaviour
         {
             Debug.Log("No Sound");
         }
+
     }
+
     public void PlaySFX(string name)
     {
         Sound sound = Array.Find(musicSounds, x => x.name == name);
@@ -64,5 +67,14 @@ public class AudioManager : MonoBehaviour
     public void SFXVolume(float volume)
     {
         sfxSource.volume = volume;
+    }
+    public class PlayerAttack : MonoBehaviour
+    {
+        public void Attack() {
+            // โค้ดการโจมตี เช่น สร้างแอนิเมชันหรือคำนวณความเสียหาย
+
+            // เล่นเสียงโจมตี
+            AudioManager.instance.PlaySFX("Attack_Sound");
+        }
     }
 }

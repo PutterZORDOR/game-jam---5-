@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class EnemyGrounded : Enemy
@@ -34,6 +34,7 @@ public class EnemyGrounded : Enemy
                 ChasePlayer();
             }
         }
+
     }
 
     // Chase the player when they are within detection range but outside jump attack range
@@ -68,6 +69,7 @@ public class EnemyGrounded : Enemy
 
         // Calculate the jump direction towards the player
         Vector3 direction = (player.transform.position - transform.position).normalized;
+
 
         // Add a vertical and horizontal force to create a jump arc
         Vector2 jumpVector = new Vector2(direction.x * jumpForce, jumpHeight);
@@ -104,4 +106,5 @@ public class EnemyGrounded : Enemy
         isJumping = false;
         isReturning = false;
     }
+
 }

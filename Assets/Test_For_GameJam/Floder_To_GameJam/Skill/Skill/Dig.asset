@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dig
   m_EditorClassIdentifier: 
   skillname: Dig
-  Description: Dig through the ground to warm your self up. ()
+  Description: Dig through the ground to warm your self up.
   sprite: {fileID: -8264518694336336545, guid: 39a2667c053b76c4286be5f1707958df, type: 3}
   Type: 1
   Ability: 0

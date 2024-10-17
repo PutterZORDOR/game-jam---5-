@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Double_Jump
   m_EditorClassIdentifier: 
   skillname: Double Jump
-  Description: "\u0E01\u0E23\u0E30\u0E42\u0E14\u0E14"
+  Description: You can jump a second time while still in mid-air.
   sprite: {fileID: 9119744025594411223, guid: bbf3a6a4a6a9df7459ff9e83b95e00f8, type: 3}
   Type: 0
   Ability: 2

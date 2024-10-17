@@ -8,6 +8,8 @@ TagManager:
   - Mana Pool
   - Boss 2
   - Boss 1
+  - Wall
+  - Ground
   layers:
   - Default
   - TransparentFX

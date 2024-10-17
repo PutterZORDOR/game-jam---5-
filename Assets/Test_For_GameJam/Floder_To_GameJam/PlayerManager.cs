@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
     private Animator anim;
     public bool IsDie;
 
+    public int scene_count;
+
     [Header("Start Stat")]
     public int MaxHealth;
 
@@ -295,6 +297,7 @@ public class PlayerManager : MonoBehaviour
     public void Die()
     {
         Time.timeScale = 0f;
+        spriteRenderer.color = Color.white;
         UI_GameOver.SetActive(true);
     }
 

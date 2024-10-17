@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public float patrolRange = 3f;      // Distance to patrol left and right
     protected Vector3 initialPosition; // Protected for derived classes
     private float patrolDirection = 1f; // 1 for right, -1 for left
-
+    private Animator animator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false);
+            animator.SetBool("Die", true);
         }
     }
 
@@ -71,10 +72,9 @@ public class Enemy : MonoBehaviour
     // Handle collision with the player
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player")) // แท็กที่คุณใช้กับศัตรู
         {
-            TakeDamage(10); // Deal damage when colliding with the player
-            Debug.Log(health);
+            PlayerManager.instance.TakeDamgeAll(1);
         }
     }
 
@@ -87,10 +87,19 @@ public class Enemy : MonoBehaviour
         {
             damageColorChange.TakeDamage();
         }
-        
-        if(health<=0)
+
+        // Apply knockback effect
+        if (health > 0) // Only apply knockback if the slime is still alive
         {
-            GameObject.Destroy(gameObject);
+            Vector2 knockbackDirection = (transform.position - PlayerManager.instance.transform.position).normalized; // Calculate direction away from player
+            rb.AddForce(knockbackDirection * 5f, ForceMode2D.Impulse); // Apply knockback force
+        }
+        else
+        {
+            // Change tag to "Untagged" before destroying the object
+            gameObject.tag = "Untagged";
+            animator.SetBool("Die", true);
         }
     }
+
 }

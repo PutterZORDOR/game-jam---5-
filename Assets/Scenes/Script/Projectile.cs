@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            // Add player damage logic here
+            PlayerManager.instance.TakeDamgeAll(1);
             gameObject.SetActive(false);
         }
         else if (collision.CompareTag("Wall"))
