@@ -467,7 +467,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1292917814}
-  - component: {fileID: 1292917815}
   m_Layer: 0
   m_Name: menucontroller
   m_TagString: Untagged
@@ -490,19 +489,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1292917815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1292917813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cabe03e71c5ade46b45373b9ff0da63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _newGamelevel2: map1enemy1towaterup
 --- !u!1 &1484486641
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,9 +715,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1292917815}
-          m_TargetAssemblyTypeName: skiptocutscene, Assembly-CSharp
-          m_MethodName: NewGameDialogYes
+        - m_Target: {fileID: 2058384138}
+          m_TargetAssemblyTypeName: Videoclip, Assembly-CSharp
+          m_MethodName: OnVideoClick
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1099,7 +1085,9 @@ MonoBehaviour:
   - {fileID: 32900000, guid: 2b5cb4c9075fefe43ad582871f9d05ca, type: 3}
   - {fileID: 32900000, guid: c210b37841aab3e469202102534236d2, type: 3}
   - {fileID: 32900000, guid: 2532b3b78ff01824eb8cdbbc29cdc29d, type: 3}
-  nextSceneName: map1enemy1towaterup
+  sceneNames:
+  - map1enemy1towaterup
+  - meteor
 --- !u!1 &2084015478
 GameObject:
   m_ObjectHideFlags: 0

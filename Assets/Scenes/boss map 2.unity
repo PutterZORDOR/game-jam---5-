@@ -31674,7 +31674,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: ab9e4e1f8a939d14b921d4e348da691c, type: 3}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[0].name
-      value: left_1
+      value: bite1
       objectReference: {fileID: 0}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[1].clip

@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
-public class Videoclip : MonoBehaviour
+public class VideoPlayerController : MonoBehaviour
 {
     public VideoPlayer videoPlayer; // Drag and drop the VideoPlayer component here
     public RawImage rawImage;       // Drag and drop the RawImage component here
     public VideoClip[] videoClips;  // Array of video clips to cycle through
-    public string nextSceneName;    // Name of the scene to switch to after the last clip
+    public string[] sceneNames;     // Array of scene names to switch to after the last clip
     private int currentVideoIndex = 0;
 
     void Start() {
@@ -36,16 +36,18 @@ public class Videoclip : MonoBehaviour
             videoPlayer.clip = videoClips[currentVideoIndex];
             videoPlayer.Play();
         } else {
-            // If it's the last clip, stop or do nothing (scene will change after this clip)
+            // If it's the last clip, stop the video and randomize the scene
             videoPlayer.Stop();
+
+            // Sufficient clicking is required to randomize and load a new scene
+            int randomSceneIndex = Random.Range(0, sceneNames.Length);
+            SceneManager.LoadScene(sceneNames[randomSceneIndex]);
         }
     }
 
     // Check when the video finishes
     void CheckVideoEnd(VideoPlayer vp) {
-        // If this is the last clip, change to the next scene
-        if (currentVideoIndex >= videoClips.Length - 1) {
-            SceneManager.LoadScene(nextSceneName);
-        }
+        // Do nothing when the video ends; only change the scene on click
     }
 }
+
