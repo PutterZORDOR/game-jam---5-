@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public float patrolRange = 3f;      // Distance to patrol left and right
     protected Vector3 initialPosition; // Protected for derived classes
     private float patrolDirection = 1f; // 1 for right, -1 for left
-
+    private Animator animator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false);
+            animator.SetTrigger("Die");
         }
     }
 
@@ -93,4 +94,5 @@ public class Enemy : MonoBehaviour
             GameObject.Destroy(gameObject);
         }
     }
+
 }

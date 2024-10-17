@@ -9,7 +9,7 @@ public class EnemyGrounded : Enemy
 
     private bool isJumping = false; // To prevent multiple jumps
     private bool isReturning = false; // To track when the enemy is returning to the original position
-
+    private Animator animator;
     protected override void Start()
     {
         base.Start(); // Call the base class's Start method
@@ -34,6 +34,7 @@ public class EnemyGrounded : Enemy
                 ChasePlayer();
             }
         }
+
     }
 
     // Chase the player when they are within detection range but outside jump attack range
@@ -103,5 +104,18 @@ public class EnemyGrounded : Enemy
         transform.position = targetPos;
         isJumping = false;
         isReturning = false;
+    }
+
+    private void Die()
+    {
+        if (health <= 0f)
+        {
+            animator.SetTrigger("Die");
+        }
+    }
+
+    public void DestroyObject()
+    {
+        Destroy(gameObject);
     }
 }
