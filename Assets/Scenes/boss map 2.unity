@@ -31662,23 +31662,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.size
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
+      propertyPath: musicSounds.Array.size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[0].clip
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: ab9e4e1f8a939d14b921d4e348da691c, type: 3}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[0].name
-      value: 
+      value: left_1
       objectReference: {fileID: 0}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[1].clip
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: ab9e4e1f8a939d14b921d4e348da691c, type: 3}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[1].name
-      value: 
+      value: left_1
       objectReference: {fileID: 0}
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[2].clip
@@ -31859,6 +31863,22 @@ PrefabInstance:
     - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: sfxSounds.Array.data[26].name
       value: soundmagugenkiwalk
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
+      propertyPath: musicSounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 191ef7985be236c459fcc7ff1ba12110, type: 3}
+    - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
+      propertyPath: musicSounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
+      propertyPath: musicSounds.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394767476048087916, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
+      propertyPath: musicSounds.Array.data[5].name
+      value: CutScene_Theme
       objectReference: {fileID: 0}
     - target: {fileID: 8513354952934879183, guid: a9678a4019056ee4eb4ef65a22685d51, type: 3}
       propertyPath: m_Name

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 public class endtostart : MonoBehaviour
 {
     public Image imageToShow;         // รูปภาพที่จะแสดง
