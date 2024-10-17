@@ -513,18 +513,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 566592974430445516, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 910554379934514311, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-      propertyPath: m_Size.x
-      value: 22.536934
-      objectReference: {fileID: 0}
-    - target: {fileID: 910554379934514311, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.49898672
-      objectReference: {fileID: 0}
     - target: {fileID: 1071714818995681574, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -102.829216
@@ -565,10 +553,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1558510388952472878, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2013675747998312037, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
       propertyPath: m_Name
       value: Boss
@@ -589,21 +573,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 3.1763432
       objectReference: {fileID: 0}
-    - target: {fileID: 8473895656553910255, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9017201590876079074, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.2813835
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2013675747998312037, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1574401329}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
 --- !u!1 &186554098
 GameObject:
@@ -2473,33 +2446,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Random_Pannel: {fileID: 1870267130}
---- !u!1 &1574401322 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2013675747998312037, guid: d6733012e4a14694f89ce510ef201df0, type: 3}
-  m_PrefabInstance: {fileID: 138299324}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1574401329
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574401322}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 941c460a1e6d1bf44ab6b32700d4323a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1594409131
 PrefabInstance:
   m_ObjectHideFlags: 0
