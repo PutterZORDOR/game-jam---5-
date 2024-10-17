@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 7650014282291282675}
   - component: {fileID: 8186630288566933876}
   - component: {fileID: 5266363593220671106}
+  - component: {fileID: 1205445339668682391}
   m_Layer: 6
   m_Name: Boss
   m_TagString: Boss 1
@@ -287,7 +288,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.103126526, y: 3.1763432}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: -0.5}
@@ -297,7 +298,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.7738037, y: 2.5675473}
   m_EdgeRadius: 0
 --- !u!114 &8186630288566933876
 MonoBehaviour:
@@ -312,13 +313,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rainPrefab: {fileID: 6685752281123227833, guid: aa627727c624a8843bd6197f51f0cd0a, type: 3}
-  beamPrefab: {fileID: 4511433654615077731, guid: f42c83b9c26d5014c98bc9e559dfdddc, type: 3}
-  shieldPrefab: {fileID: 489303055235697758, guid: 4be04971139555e49a9241c182279993, type: 3}
   rainSpawnArea: {fileID: 646943412366227465}
   minRainInterval: 10
   maxRainInterval: 20
   rainSpawnFrequency: 10
-  beamDelay: 1
   attackPhaseDurationMin: 0.5
   attackPhaseDurationMax: 1
   cooldownDuration: 3
@@ -326,6 +324,7 @@ MonoBehaviour:
   currentHealth: 0
   isUsingSkill: 0
   isInAttackPhase: 0
+  isShield: 0
   isInCooldown: 0
 --- !u!114 &5266363593220671106
 MonoBehaviour:
@@ -339,3 +338,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7675501a1332ef44195e6ab6cd50bee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1205445339668682391
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013675747998312037}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 941c460a1e6d1bf44ab6b32700d4323a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1cc99e5fe5e9440b52adc60d7693b6, type: 3}
   m_Name: Increase Damge
   m_EditorClassIdentifier: 
-  skillname: Increase Damge
-  Description: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E14\u0E32\u0E40\u0E21\u0E08"
+  skillname: Increase Damage
+  Description: Increase bonus damage for normal attacks.
   sprite: {fileID: -3458533656107747488, guid: 3dbbe0fee723721439583a9d9362a0bf, type: 3}
   Type: 0
   Ability: 4

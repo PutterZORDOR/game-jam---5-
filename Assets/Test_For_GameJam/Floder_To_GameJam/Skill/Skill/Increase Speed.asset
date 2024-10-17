@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Increase Speed
   m_EditorClassIdentifier: 
   skillname: Increase Speed
-  Description: "\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E27\u0E32\u0E21\u0E40\u0E23\u0E47\u0E27"
+  Description: Increase movement speed bonus both in the air and on the ground, and
+    it also affects other skills.
   sprite: {fileID: -8966643095438776406, guid: 55a5ed121643ac74faa8dbb1b85d0f22, type: 3}
   Type: 0
   Ability: 5
