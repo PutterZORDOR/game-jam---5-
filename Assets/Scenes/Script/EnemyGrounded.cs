@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class EnemyGrounded : Enemy
@@ -9,7 +9,7 @@ public class EnemyGrounded : Enemy
 
     private bool isJumping = false; // To prevent multiple jumps
     private bool isReturning = false; // To track when the enemy is returning to the original position
-    private Animator animator;
+
     protected override void Start()
     {
         base.Start(); // Call the base class's Start method
@@ -70,6 +70,7 @@ public class EnemyGrounded : Enemy
         // Calculate the jump direction towards the player
         Vector3 direction = (player.transform.position - transform.position).normalized;
 
+
         // Add a vertical and horizontal force to create a jump arc
         Vector2 jumpVector = new Vector2(direction.x * jumpForce, jumpHeight);
         rb.velocity = Vector2.zero; // Stop any current movement before jumping
@@ -106,16 +107,4 @@ public class EnemyGrounded : Enemy
         isReturning = false;
     }
 
-    private void Die()
-    {
-        if (health <= 0f)
-        {
-            animator.SetTrigger("Die");
-        }
-    }
-
-    public void DestroyObject()
-    {
-        Destroy(gameObject);
-    }
 }

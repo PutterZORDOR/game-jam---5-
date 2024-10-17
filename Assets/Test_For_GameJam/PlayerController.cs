@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Unity.Android.Gradle;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
